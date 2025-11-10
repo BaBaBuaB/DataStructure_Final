@@ -5,8 +5,5 @@ public class SpawnEnemies : BaseSpawn
 {
     public List<Identity> enemiesInPools;
 
-    public override GameObject Spawn()
-    {
-        return null;
-    }
+
 }
