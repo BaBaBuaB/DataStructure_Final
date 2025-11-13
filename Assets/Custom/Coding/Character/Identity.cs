@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Identity : MonoBehaviour
+public abstract class Identity : MonoBehaviour
 {
     private int speed;
     private int attack;
@@ -15,8 +15,5 @@ public class Identity : MonoBehaviour
         set { attack = value; } 
     }
 
-    public void Move()
-    {
-        
-    }
+    public abstract void Move();
 }

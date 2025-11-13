@@ -1,6 +1,8 @@
+using UnityEngine;
 public interface IDamageable
 {
     public int Health { get;set;}
-    public void TakeDamages();
-    public void IsDeath();
+    public void TakeDamages(int damages);
+    public bool IsDeath();
+    Transform GetTransform();
 }

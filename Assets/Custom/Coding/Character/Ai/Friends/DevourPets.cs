@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class DevourPets : Pet
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         
     }
