@@ -97,15 +97,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: slime_idle3_7
+      name: slime_idle3_fire1
       rect:
         serializedVersion: 2
-        x: 24
+        x: 23
         y: 384
         width: 19
         height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 1.1161742, y: 0.5609722}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -119,15 +119,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_8
+      name: slime_idle3_fire2
       rect:
         serializedVersion: 2
-        x: 103
+        x: 102
         y: 384
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -141,15 +141,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_9
+      name: slime_idle3_fire3
       rect:
         serializedVersion: 2
-        x: 184
+        x: 183
         y: 384
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -163,7 +163,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_10
+      name: slime_idle3_fire4
       rect:
         serializedVersion: 2
         x: 265
@@ -171,7 +171,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -185,7 +185,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_11
+      name: slime_idle3_fire5
       rect:
         serializedVersion: 2
         x: 345
@@ -193,7 +193,7 @@ TextureImporter:
         width: 20
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -207,7 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_12
+      name: slime_idle3_fire6
       rect:
         serializedVersion: 2
         x: 425
@@ -215,7 +215,7 @@ TextureImporter:
         width: 19
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -229,7 +229,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_13
+      name: slime_idle3_fire7
       rect:
         serializedVersion: 2
         x: 504
@@ -237,7 +237,7 @@ TextureImporter:
         width: 19
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -251,7 +251,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_21
+      name: slime_idle3_water1
       rect:
         serializedVersion: 2
         x: 24
@@ -259,7 +259,7 @@ TextureImporter:
         width: 19
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -273,7 +273,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_22
+      name: slime_idle3_water2
       rect:
         serializedVersion: 2
         x: 103
@@ -281,7 +281,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -295,7 +295,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_23
+      name: slime_idle3_water3
       rect:
         serializedVersion: 2
         x: 184
@@ -303,7 +303,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -317,15 +317,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_24
+      name: slime_idle3_water4
       rect:
         serializedVersion: 2
         x: 265
-        y: 240
+        y: 241
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_25
+      name: slime_idle3_water5
       rect:
         serializedVersion: 2
         x: 345
@@ -347,7 +347,7 @@ TextureImporter:
         width: 20
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -361,7 +361,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_26
+      name: slime_idle3_water6
       rect:
         serializedVersion: 2
         x: 425
@@ -369,7 +369,7 @@ TextureImporter:
         width: 19
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -383,7 +383,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_27
+      name: slime_idle3_water7
       rect:
         serializedVersion: 2
         x: 503
@@ -391,7 +391,7 @@ TextureImporter:
         width: 19
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -405,7 +405,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_28
+      name: slime_idle3_wood1
       rect:
         serializedVersion: 2
         x: 24
@@ -413,7 +413,7 @@ TextureImporter:
         width: 19
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -427,7 +427,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_29
+      name: slime_idle3_wood2
       rect:
         serializedVersion: 2
         x: 103
@@ -435,7 +435,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -449,7 +449,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_30
+      name: slime_idle3_wood3
       rect:
         serializedVersion: 2
         x: 184
@@ -457,7 +457,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -471,7 +471,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_31
+      name: slime_idle3_wood4
       rect:
         serializedVersion: 2
         x: 265
@@ -479,7 +479,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -493,7 +493,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_32
+      name: slime_idle3_wood5
       rect:
         serializedVersion: 2
         x: 345
@@ -501,7 +501,7 @@ TextureImporter:
         width: 20
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -515,7 +515,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_33
+      name: slime_idle3_wood6
       rect:
         serializedVersion: 2
         x: 425
@@ -523,7 +523,7 @@ TextureImporter:
         width: 19
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -537,7 +537,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_34
+      name: slime_idle3_wood7
       rect:
         serializedVersion: 2
         x: 504
@@ -545,7 +545,7 @@ TextureImporter:
         width: 19
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -559,7 +559,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_42
+      name: slime_idle3_rock1
       rect:
         serializedVersion: 2
         x: 24
@@ -567,7 +567,7 @@ TextureImporter:
         width: 19
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -581,7 +581,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_43
+      name: slime_idle3_rock2
       rect:
         serializedVersion: 2
         x: 103
@@ -589,7 +589,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -603,7 +603,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_44
+      name: slime_idle3_rock3
       rect:
         serializedVersion: 2
         x: 184
@@ -611,7 +611,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -625,7 +625,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_45
+      name: slime_idle3_rock4
       rect:
         serializedVersion: 2
         x: 265
@@ -633,7 +633,7 @@ TextureImporter:
         width: 19
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -647,7 +647,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_46
+      name: slime_idle3_rock5
       rect:
         serializedVersion: 2
         x: 345
@@ -655,7 +655,7 @@ TextureImporter:
         width: 20
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -669,7 +669,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_47
+      name: slime_idle3_rock6
       rect:
         serializedVersion: 2
         x: 425
@@ -677,7 +677,7 @@ TextureImporter:
         width: 19
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -691,7 +691,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_idle3_48
+      name: slime_idle3_rock7
       rect:
         serializedVersion: 2
         x: 504
@@ -699,7 +699,7 @@ TextureImporter:
         width: 19
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -728,33 +728,14 @@ TextureImporter:
     nameFileIdTable:
       slime_idle3_0: -631916793
       slime_idle3_1: -996115838
-      slime_idle3_10: 1548377756
-      slime_idle3_11: -332422346
-      slime_idle3_12: 1087561228
-      slime_idle3_13: 1593742361
       slime_idle3_14: -1649793877
       slime_idle3_15: 790501684
       slime_idle3_16: 451828897
       slime_idle3_17: -427574607
       slime_idle3_18: 318225154
       slime_idle3_19: 1854844778
-      slime_idle3_2: 905912045
       slime_idle3_20: 1212448137
-      slime_idle3_21: 2083238610
-      slime_idle3_22: -605053170
-      slime_idle3_23: 1084690600
-      slime_idle3_24: -749994988
-      slime_idle3_25: -200874416
-      slime_idle3_26: 464957231
-      slime_idle3_27: 924290142
-      slime_idle3_28: 647841713
-      slime_idle3_29: -41428829
       slime_idle3_3: -453142562
-      slime_idle3_30: -324810186
-      slime_idle3_31: 657769043
-      slime_idle3_32: 1733625539
-      slime_idle3_33: -69137009
-      slime_idle3_34: -1428132031
       slime_idle3_35: 1508536531
       slime_idle3_36: -2073831536
       slime_idle3_37: 486651492
@@ -763,19 +744,37 @@ TextureImporter:
       slime_idle3_4: 1841193172
       slime_idle3_40: -435002225
       slime_idle3_41: 1665774791
-      slime_idle3_42: 509230736
-      slime_idle3_43: 2033433012
-      slime_idle3_44: 1366129682
-      slime_idle3_45: 1692016864
-      slime_idle3_46: -1260984172
-      slime_idle3_47: -480300704
-      slime_idle3_48: 1067666813
       slime_idle3_49: -1618572605
       slime_idle3_5: -1540628260
       slime_idle3_6: 1173020580
-      slime_idle3_7: 1505679412
-      slime_idle3_8: 46573198
-      slime_idle3_9: 248257342
+      slime_idle3_fire1: 1505679412
+      slime_idle3_fire2: 46573198
+      slime_idle3_fire3: 248257342
+      slime_idle3_fire4: 1548377756
+      slime_idle3_fire5: -332422346
+      slime_idle3_fire6: 1087561228
+      slime_idle3_fire7: 1593742361
+      slime_idle3_rock1: 509230736
+      slime_idle3_rock2: 2033433012
+      slime_idle3_rock3: 1366129682
+      slime_idle3_rock4: 1692016864
+      slime_idle3_rock5: -1260984172
+      slime_idle3_rock6: -480300704
+      slime_idle3_rock7: 1067666813
+      slime_idle3_water1: 2083238610
+      slime_idle3_water2: -605053170
+      slime_idle3_water3: 1084690600
+      slime_idle3_water4: -749994988
+      slime_idle3_water5: -200874416
+      slime_idle3_water6: 464957231
+      slime_idle3_water7: 924290142
+      slime_idle3_wood1: 647841713
+      slime_idle3_wood2: -41428829
+      slime_idle3_wood3: -324810186
+      slime_idle3_wood4: 657769043
+      slime_idle3_wood5: 1733625539
+      slime_idle3_wood6: -69137009
+      slime_idle3_wood7: -1428132031
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
