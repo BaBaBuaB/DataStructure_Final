@@ -12,6 +12,7 @@ public class Enemies : BaseAi, IDamageable
     }
 
     [SerializeField] protected LayerMask playerLayer;
+    [SerializeField] protected LayerMask obstacleLayer;
     [SerializeField] public int enemyLevel;
     [SerializeField] public GameObject[] itemDrop;
 
@@ -106,8 +107,9 @@ public class Enemies : BaseAi, IDamageable
         if (isChasing && HasLineOfSight(targetTransform))
         {
             ChaseTarget();
+            AttackTarget();
         }
-        else if (!isChasing)
+        else if (!isChasing && reachDis)
         {
             rb.linearVelocity = Vector2.zero;
         }
@@ -148,7 +150,6 @@ public class Enemies : BaseAi, IDamageable
     #endregion
 
     #region "Combat"
-
     protected override void AttackTarget()
     {
         if (targetTransform == null || attackTimer > 0) return;
@@ -157,6 +158,7 @@ public class Enemies : BaseAi, IDamageable
         if (distance <= attackRange)
         {
             attackTimer = nextAttackTime;
+            rb.linearVelocity = Vector2.zero ;
 
             Player damageable = targetTransform.GetComponent<Player>();
             if (damageable != null)
@@ -168,34 +170,18 @@ public class Enemies : BaseAi, IDamageable
     }
     #endregion
 
-    #region "Callbacks"
-
-    protected override void OnPathNotFound()
+    protected bool HasLineOfSight(Transform target)
     {
-        base.OnPathNotFound();
-        isChasing = false;
+        if (target == null) return false;
+
+        Vector2 direction = target.position - transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, direction.magnitude, obstacleLayer);
+        return hit.collider == null;
     }
 
-    protected override void OnTargetTooFar()
+    protected float GetDistanceToTarget()
     {
-        //Debug.Log($"{gameObject.name}: เป้าหมายอยู่ไกลเกินไป หยุดไล่ตาม");
-        isChasing = false;
-        rb.linearVelocity = Vector2.zero;
+        if (targetTransform == null) return float.MaxValue;
+        return Vector2.Distance(transform.position, targetTransform.position);
     }
-    #endregion
-
-    #region "Target Switching"
-    public void SetTarget(Transform newTarget)
-    {
-        if (newTarget == null) return;
-
-        float distance = Vector2.Distance(transform.position, newTarget.position);
-        if (distance <= chaseRange)
-        {
-            targetTransform = newTarget;
-            isChasing = true;
-            //Debug.Log($"{gameObject.name}: เปลี่ยนเป้าหมายใหม่!");
-        }
-    }
-    #endregion
 }

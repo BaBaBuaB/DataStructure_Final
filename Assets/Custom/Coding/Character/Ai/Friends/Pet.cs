@@ -1,21 +1,26 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 
 public class Pet : BaseAi
 {
     #region "Pet Parameters"
     [Header("Follow Settings")]
-    [SerializeField] protected Transform owner; // ผู้เล่น
+    [SerializeField] protected Player owner; // ผู้เล่น
     [SerializeField] protected float followDistance = 3f; // ระยะห่างที่ติดตาม
-    [SerializeField] protected float stopDistance; // ระยะที่หยุด
 
     [Header("Combat Settings")]
     [SerializeField] protected LayerMask enemyLayer;
-    [SerializeField] protected float protectDistance;
-
-    private Enemies currentTarget;
     private bool isProtecting = false;
+
+    // สร้าง buffer ไว้ล่วงหน้า (ครั้งเดียว)
+    private Collider2D[] hitBuffer; // ขนาด 20 ก็พอ
+    private float threatCheckInterval = 0.2f;
+    private float threatCheckTimer = 0f;
+
+    // ตัวแปรสำหรับ cache
+    private float cachedDistanceToTarget = float.MaxValue;
+    private float distanceCacheTime = 0f;
+    private const float DISTANCE_CACHE_DURATION = 0.05f; // cache 0.05 วินาที
     #endregion
 
     protected void Initialized(int atk, int spd,int detect, float atkRang, float atkCoolDown)
@@ -34,27 +39,31 @@ public class Pet : BaseAi
         // ตรวจสอบศัตรูใกล้เคียง
         CheckForThreats();
 
-        if (isProtecting && currentTarget != null && !currentTarget.IsDeath())
+        if (isProtecting && targetTransform != null)
         {
-            // ไล่ตามศัตรู
-            targetTransform = currentTarget.GetTransform();
-            stoppingDistance = attackRange - 1f;
+            // ตรวจสอบว่าศัตรูยังมีชีวิตอยู่หรือไม่
+            IDamageable damageable = targetTransform.GetComponent<IDamageable>();
+            if (damageable != null && damageable.IsDeath())
+            {
+                // ศัตรูตายแล้ว
+                isProtecting = false;
+                targetTransform = null;
+                return;
+            }
 
             // ตรวจสอบระยะทาง ถ้าไกลเกินไปให้กลับไปหาเจ้าของ
-            float distanceToEnemy = Vector2.Distance(transform.position, currentTarget.GetTransform().position);
-            if (distanceToEnemy > protectDistance * 2f)
+            float distanceToEnemy = GetCachedDistanceToTarget();
+            if (distanceToEnemy > detectRange * 1.2f)
             {
                 isProtecting = false;
-                currentTarget = null;
+                targetTransform = null;
             }
         }
         else
         {
             // ไม่มีศัตรู กลับไปติดตามเจ้าของ
             isProtecting = false;
-            currentTarget = null;
-            targetTransform = owner;
-            stoppingDistance = stopDistance;
+            targetTransform = owner.GetTransform();
         }
     }
 
@@ -66,6 +75,7 @@ public class Pet : BaseAi
         {
             // โหมดป้องกัน - ไล่ตามและโจมตีศัตรู
             ChaseTarget();
+            AttackTarget();
         }
         else
         {
@@ -77,11 +87,9 @@ public class Pet : BaseAi
     #endregion
 
     #region "Follow Owner"
-    private void FollowOwner()
+    protected void FollowOwner()
     {
-        if (owner == null) return;
-
-        float distanceToOwner = Vector2.Distance(transform.position, owner.position);
+        float distanceToOwner = Vector2.Distance(transform.position, owner.GetTransform().position);
 
         // ติดตามเจ้าของถ้าอยู่ไกลเกินไป
         if (distanceToOwner > followDistance)
@@ -90,7 +98,7 @@ public class Pet : BaseAi
             if (pathUpdateTimer >= pathUpdateInterval)
             {
                 pathUpdateTimer = 0f;
-                FindPath(owner.position);
+                FindPath(owner.GetTransform().position);
             }
             Move();
         }
@@ -105,26 +113,29 @@ public class Pet : BaseAi
     #region "Combat"
     private void CheckForThreats()
     {
-        // ใช้ Collider2D แทน IDamageable
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, protectDistance, enemyLayer);
+        threatCheckTimer += Time.deltaTime;
+        if (threatCheckTimer < threatCheckInterval) return;
+        threatCheckTimer = 0f;
 
-        if (hits.Length > 0 && owner != null)
+        hitBuffer = Physics2D.OverlapCircleAll(transform.position, detectRange, enemyLayer);
+
+        if (hitBuffer.Length > 0 && owner != null)
         {
-            Enemies closestToOwner = null;
+            Transform closestToOwner = null;
             float closestDistance = float.MaxValue;
 
-            foreach (Collider2D hit in hits)
+            foreach (Collider2D hit in hitBuffer)
             {
                 if (hit.gameObject == gameObject) continue;
 
-                Enemies damageable = hit.GetComponent<Enemies>();
+                IDamageable damageable = hit.GetComponent<IDamageable>();
                 if (damageable != null && !damageable.IsDeath())
                 {
-                    float distanceToOwner = Vector2.Distance(hit.transform.position, owner.position);
+                    float distanceToOwner = Vector2.Distance(hit.transform.position, owner.GetTransform().position);
                     if (distanceToOwner < closestDistance)
                     {
                         closestDistance = distanceToOwner;
-                        closestToOwner = damageable;
+                        closestToOwner = hit.transform;
                     }
                 }
             }
@@ -132,7 +143,7 @@ public class Pet : BaseAi
             if (closestToOwner != null)
             {
                 //Debug.Log("Found Enemy!");
-                currentTarget = closestToOwner;
+                targetTransform = closestToOwner;
                 isProtecting = true;
             }
         }
@@ -140,29 +151,47 @@ public class Pet : BaseAi
 
     protected override void AttackTarget()
     {
-        if (currentTarget == null || currentTarget.IsDeath()) return;
-        if (attackTimer > 0) return;
+        if (targetTransform == null || attackTimer > 0) return;
 
-        float distance = Vector2.Distance(transform.position, currentTarget.GetTransform().position);
+        // ตรวจสอบว่าเป้าหมายมี IDamageable และยังไม่ตาย
+        IDamageable damageable = targetTransform.GetComponent<IDamageable>();
+        if (damageable == null || damageable.IsDeath()) return;
+
+        float distance = GetCachedDistanceToTarget();
         if (distance <= attackRange)
         {
             attackTimer = nextAttackTime;
-            currentTarget.TakeDamages(Attack);
-            //Debug.Log($"{gameObject.name}: โจมตีศัตรู! ดาเมจ {Attack}");
+            damageable.TakeDamages(Attack);
+            Debug.Log($"{gameObject.name}: โจมตีศัตรู! ดาเมจ {Attack}");
         }
     }
     #endregion
 
     #region "Callbacks"
-
-    protected override void OnTargetTooFar()
+    protected float GetCachedDistanceToTarget()
     {
-        if (isProtecting)
+        // เช็คว่า cache หมดอายุหรือยัง
+        if (Time.time - distanceCacheTime > DISTANCE_CACHE_DURATION)
         {
-            //Debug.Log($"{gameObject.name}: ศัตรูอยู่ไกลเกินไป หยุดไล่ตาม");
-            isProtecting = false;
-            currentTarget = null;
+            // หมดอายุแล้ว คำนวณใหม่
+            if (targetTransform != null)
+            {
+                cachedDistanceToTarget = Vector2.Distance(
+                    transform.position,
+                    targetTransform.position
+                );
+            }
+            else
+            {
+                cachedDistanceToTarget = float.MaxValue;
+            }
+
+            // อัพเดทเวลา
+            distanceCacheTime = Time.time;
         }
+
+        // ส่งค่าที่ cache ไว้
+        return cachedDistanceToTarget;
     }
     #endregion
 }

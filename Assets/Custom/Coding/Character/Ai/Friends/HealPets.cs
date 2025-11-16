@@ -5,10 +5,8 @@ public class HealPets : Pet
     private  void Awake()
     {
         InitializeComponents();
-        InitializePathfinder();
-
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(10, 3, 20, 3f, 0.5f);
+        Initialized(10, 500, 20, 6f, 0.5f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
@@ -16,16 +14,45 @@ public class HealPets : Pet
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                owner = player.transform;
+                owner = player.GetComponent<Player>();
             }
         }
-
-        stoppingDistance = stopDistance;
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateBehavior();
+    }
+
+    protected override void AttackTarget()
+    {
+        if (owner.IsDeath() || attackTimer > 0) return;
+
+        float distance = Vector2.Distance(transform.position,targetTransform.position );
+        if (distance <= attackRange)
+        {
+            attackTimer = nextAttackTime;
+            owner.Health += Attack;
+            Debug.Log($"{gameObject.name}: รักษา {owner.Health}");
+        }
+    }
+
+    protected override void Behavior()
+    {
+        if (owner == null) return;
+
+        FollowOwner();
+
+        if (owner.Health < 90)
+        {
+            AttackTarget();
+        }
+    }
+
+    protected override void UpdateTarget()
+    {
+        //base.UpdateTarget();
+        targetTransform = owner.GetTransform();
     }
 }

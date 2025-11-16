@@ -8,6 +8,7 @@ TagManager:
   - Pet
   - Obstacles
   - Items
+  - Bullet
   layers:
   - Default
   - TransparentFX

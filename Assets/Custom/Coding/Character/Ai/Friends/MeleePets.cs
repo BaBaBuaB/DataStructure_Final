@@ -5,10 +5,8 @@ public class MeleePets : Pet
     private  void Awake()
     {
         InitializeComponents();
-        InitializePathfinder();
-
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(10, 8, 20, 2f, 0.5f);
+        Initialized(10, 500, 4, 4f, 0.5f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
@@ -16,11 +14,9 @@ public class MeleePets : Pet
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                owner = player.transform;
+                owner = player.GetComponent<Player>();
             }
         }
-
-        stoppingDistance = stopDistance;
     }
 
     // Update is called once per frame

@@ -21,6 +21,9 @@ public class Player : Identity, IDamageable
     private InputAction moveAction;
     private InputAction blockAction;
 
+    [SerializeField]private float coolDown = 3;
+    private float timerCoolDown;
+
     private void Initialized(int hp, int atk, int spd)
     {
         Health = hp;
@@ -30,7 +33,7 @@ public class Player : Identity, IDamageable
 
     private void Awake()
     {
-        Initialized(100,10,7);
+        Initialized(100,10,10);
 
         rigidbody2 = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
@@ -48,7 +51,9 @@ public class Player : Identity, IDamageable
         }
 
         Move();
-        BlockBullet();
+
+
+        timerCoolDown -= 1;
     }
 
     #region"InterfaceIDamages"
@@ -90,18 +95,11 @@ public class Player : Identity, IDamageable
         Destroy(items.gameObject);
     }
 
-    public void BlockBullet()
-    {
-        if (blockAction.triggered)
-        {
-            
-        }
-    }
-
     public override void Move()
     {
         Vector2 move = moveAction.ReadValue<Vector2>();
-        rigidbody2.linearVelocity = new Vector2(move.x * Speed, move.y * Speed);
+        Vector2 moveDir = move * Speed * Time.deltaTime;
+        transform.Translate(moveDir);
     }
 
     public void SetStatPet()
@@ -134,15 +132,6 @@ public class Player : Identity, IDamageable
             return;
         }
 
-        
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Enemies enemies = collision.gameObject.GetComponent<Enemies>();
-            if (enemies != null)
-            {
-                TakeDamages(enemies.Attack);
-            }
-        }
         else if (collision.gameObject.CompareTag("Items"))
         {
             Items item = collision.gameObject.GetComponent<Items>();
@@ -152,9 +141,20 @@ public class Player : Identity, IDamageable
                 GetItems(item);
             }
         }
-        else
+        else if(collision.gameObject.CompareTag("Bullet"))
         {
-            return;
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+            if (blockAction.triggered && timerCoolDown <= 0 && bullet.ownerBullet == "Enemy")
+            {
+                bullet.Reflex("Player");
+                timerCoolDown = coolDown;
+                Debug.Log("Reflex");
+            }
+            else if (bullet.ownerBullet == "Enemy")
+            {
+                TakeDamages(bullet.Attack);
+            }
         }
     }
 }
