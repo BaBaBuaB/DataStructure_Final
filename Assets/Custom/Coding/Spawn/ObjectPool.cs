@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseSpawn : MonoBehaviour
+public class ObjectPool : MonoBehaviour
 {
     #region Singleton
-    public static BaseSpawn instance;
+    public static ObjectPool instance;
     #endregion
 
 

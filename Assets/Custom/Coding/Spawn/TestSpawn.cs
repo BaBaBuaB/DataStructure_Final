@@ -14,7 +14,7 @@ public class TestSpawn : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            GameObject c = BaseSpawn.instance.Spawn("Test");
+            GameObject c = ObjectPool.instance.Spawn("Test");
             Test(c);
         }
     }
@@ -25,7 +25,7 @@ public class TestSpawn : MonoBehaviour
         IEnumerator wait()
         {
             yield return new WaitForSeconds(3);
-            BaseSpawn.instance.Return(c, "Test");
+            ObjectPool.instance.Return(c, "Test");
         }
     }
 
