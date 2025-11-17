@@ -8,8 +8,17 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "24ed58c0-7cb2-4b3d-bad6-43b97eecc0dc",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "BlockBullet",
+                    "type": "Button",
+                    "id": "5b9316e9-62e9-4c43-96fb-2d414dbb8681",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -18,13 +27,68 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "2a1f9750-8ede-4f66-bd9e-2fea4aa03a17",
+                    "name": "WASD",
+                    "id": "359a0c76-aae5-409b-857d-988c58ea1763",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "d71a1beb-a374-4e0f-805a-5981bca790a7",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "0f4b87c0-68dd-4923-9bb4-1cefc18a700d",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "bf94038f-cc06-4068-8c70-be8accd8c283",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "e6f0e2a4-92cc-4ec0-b74a-c56e659f8044",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "426e0557-e981-4dba-8caa-735ea2580837",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockBullet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

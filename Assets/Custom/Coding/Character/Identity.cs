@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public class Identity : MonoBehaviour
+public abstract class Identity : MonoBehaviour
 {
     private int speed;
     private int attack;
+    protected Rigidbody2D rb;
+
     public int Speed
     { 
         get { return speed; }
@@ -15,8 +17,5 @@ public class Identity : MonoBehaviour
         set { attack = value; } 
     }
 
-    public void Move()
-    {
-        
-    }
+    public abstract void Move();
 }
