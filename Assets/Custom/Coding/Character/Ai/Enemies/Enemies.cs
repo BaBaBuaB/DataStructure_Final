@@ -102,16 +102,23 @@ public class Enemies : BaseAi, IDamageable
 
     protected override void Behavior()
     {
-        if (targetTransform == null) return;
+        if(targetTransform == null) return;
 
         if (isChasing && HasLineOfSight(targetTransform))
         {
-            ChaseTarget();
-            AttackTarget();
-        }
-        else if (!isChasing && reachDis)
-        {
-            rb.linearVelocity = Vector2.zero;
+            float distanceToTarget = GetDistanceToTarget();
+
+            // ถ้าอยู่ในระยะโจมตีให้หยุด
+            if (distanceToTarget <= attackRange)
+            {
+                rb.linearVelocity = Vector2.zero;
+                AttackTarget();
+            }
+            else
+            {
+                // ยังไม่ถึงระยะโจมตีให้ Chase ต่อ
+                ChaseTarget();
+            }
         }
     }
     #endregion
@@ -158,7 +165,6 @@ public class Enemies : BaseAi, IDamageable
         if (distance <= attackRange)
         {
             attackTimer = nextAttackTime;
-            rb.linearVelocity = Vector2.zero ;
 
             Player damageable = targetTransform.GetComponent<Player>();
             if (damageable != null)
@@ -177,11 +183,5 @@ public class Enemies : BaseAi, IDamageable
         Vector2 direction = target.position - transform.position;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, direction.magnitude, obstacleLayer);
         return hit.collider == null;
-    }
-
-    protected float GetDistanceToTarget()
-    {
-        if (targetTransform == null) return float.MaxValue;
-        return Vector2.Distance(transform.position, targetTransform.position);
     }
 }

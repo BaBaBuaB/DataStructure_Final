@@ -29,7 +29,7 @@ public class HealPets : Pet
     {
         if (owner.IsDeath() || attackTimer > 0) return;
 
-        float distance = Vector2.Distance(transform.position,targetTransform.position );
+        float distance = GetDistanceToTarget();
         if (distance <= attackRange)
         {
             attackTimer = nextAttackTime;

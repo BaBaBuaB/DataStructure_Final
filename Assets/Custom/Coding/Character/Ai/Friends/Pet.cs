@@ -17,10 +17,6 @@ public class Pet : BaseAi
     private float threatCheckInterval = 0.2f;
     private float threatCheckTimer = 0f;
 
-    // ตัวแปรสำหรับ cache
-    private float cachedDistanceToTarget = float.MaxValue;
-    private float distanceCacheTime = 0f;
-    private const float DISTANCE_CACHE_DURATION = 0.05f; // cache 0.05 วินาที
     #endregion
 
     protected void Initialized(int atk, int spd,int detect, float atkRang, float atkCoolDown)
@@ -52,7 +48,7 @@ public class Pet : BaseAi
             }
 
             // ตรวจสอบระยะทาง ถ้าไกลเกินไปให้กลับไปหาเจ้าของ
-            float distanceToEnemy = GetCachedDistanceToTarget();
+            float distanceToEnemy = GetDistanceToTarget();
             if (distanceToEnemy > detectRange * 1.2f)
             {
                 isProtecting = false;
@@ -73,13 +69,22 @@ public class Pet : BaseAi
 
         if (isProtecting)
         {
-            // โหมดป้องกัน - ไล่ตามและโจมตีศัตรู
-            ChaseTarget();
-            AttackTarget();
+            float distanceToEnemy = GetDistanceToTarget();
+
+            // ถ้าอยู่ในระยะโจมตีให้หยุด
+            if (distanceToEnemy <= attackRange)
+            {
+                rb.linearVelocity = Vector2.zero;
+                AttackTarget();
+            }
+            else
+            {
+                // ยังไม่ถึงระยะโจมตีให้ Chase
+                ChaseTarget();
+            }
         }
         else
         {
-            // โหมดติดตาม - ติดตามเจ้าของ
             FollowOwner();
         }
     }
@@ -157,41 +162,13 @@ public class Pet : BaseAi
         IDamageable damageable = targetTransform.GetComponent<IDamageable>();
         if (damageable == null || damageable.IsDeath()) return;
 
-        float distance = GetCachedDistanceToTarget();
+        float distance = GetDistanceToTarget();
         if (distance <= attackRange)
         {
             attackTimer = nextAttackTime;
             damageable.TakeDamages(Attack);
             Debug.Log($"{gameObject.name}: โจมตีศัตรู! ดาเมจ {Attack}");
         }
-    }
-    #endregion
-
-    #region "Callbacks"
-    protected float GetCachedDistanceToTarget()
-    {
-        // เช็คว่า cache หมดอายุหรือยัง
-        if (Time.time - distanceCacheTime > DISTANCE_CACHE_DURATION)
-        {
-            // หมดอายุแล้ว คำนวณใหม่
-            if (targetTransform != null)
-            {
-                cachedDistanceToTarget = Vector2.Distance(
-                    transform.position,
-                    targetTransform.position
-                );
-            }
-            else
-            {
-                cachedDistanceToTarget = float.MaxValue;
-            }
-
-            // อัพเดทเวลา
-            distanceCacheTime = Time.time;
-        }
-
-        // ส่งค่าที่ cache ไว้
-        return cachedDistanceToTarget;
     }
     #endregion
 }

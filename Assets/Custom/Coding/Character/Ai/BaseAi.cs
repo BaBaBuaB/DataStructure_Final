@@ -13,7 +13,6 @@ public abstract class BaseAi : Identity
     protected Path path;
     Seeker seeker;
     protected bool reachDis;
-    protected Rigidbody2D rb;
     protected int currentWayPoint = 0;
 
     #endregion
@@ -112,6 +111,13 @@ public abstract class BaseAi : Identity
         }
 
         Move();
+
+    }
+
+    protected float GetDistanceToTarget()
+    {
+        if (targetTransform == null) return float.MaxValue;
+        return Vector2.Distance(transform.position, targetTransform.position);
     }
     #endregion
     #region "Abstract & Virtual Methods"
@@ -120,7 +126,6 @@ public abstract class BaseAi : Identity
     protected abstract void UpdateTarget();
 
     protected virtual void AttackTarget() { }
-    protected virtual void OnTargetTooFar() { }
     #endregion
 
 }

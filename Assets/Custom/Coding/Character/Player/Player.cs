@@ -15,7 +15,6 @@ public class Player : Identity, IDamageable
     public int poolsPet;
     public List<Pet> pets;
 
-    private Rigidbody2D rigidbody2;
     private PlayerInput playerInput;
     private InputActionMap inputActionsMap;
     private InputAction moveAction;
@@ -23,6 +22,7 @@ public class Player : Identity, IDamageable
 
     [SerializeField]private float coolDown = 3;
     private float timerCoolDown;
+    public GameObject barriar;
 
     private void Initialized(int hp, int atk, int spd)
     {
@@ -35,7 +35,7 @@ public class Player : Identity, IDamageable
     {
         Initialized(100,10,10);
 
-        rigidbody2 = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         inputActionsMap = playerInput.actions.FindActionMap("Controller");
         moveAction = inputActionsMap.FindAction("Move");
@@ -51,7 +51,7 @@ public class Player : Identity, IDamageable
         }
 
         Move();
-
+        Block();
 
         timerCoolDown -= 1;
     }
@@ -101,6 +101,17 @@ public class Player : Identity, IDamageable
         Vector2 moveDir = move * Speed * Time.deltaTime;
         transform.Translate(moveDir);
     }
+    private void Block()
+    {
+        if (blockAction.triggered && timerCoolDown <= 0)
+        {
+            barriar.SetActive(true);
+        }
+        else
+        {
+            barriar.SetActive(false);
+        }
+    }
 
     public void SetStatPet()
     {
@@ -139,21 +150,6 @@ public class Player : Identity, IDamageable
             if (item != null)
             {
                 GetItems(item);
-            }
-        }
-        else if(collision.gameObject.CompareTag("Bullet"))
-        {
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-
-            if (blockAction.triggered && timerCoolDown <= 0 && bullet.ownerBullet == "Enemy")
-            {
-                bullet.Reflex("Player");
-                timerCoolDown = coolDown;
-                Debug.Log("Reflex");
-            }
-            else if (bullet.ownerBullet == "Enemy")
-            {
-                TakeDamages(bullet.Attack);
             }
         }
     }
