@@ -1,12 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class SpawBullets : BaseSpawn
+public class SpawBullets : ObjectPool
 {
     public List<Identity> bulletsInPools;
 
-    public override GameObject Spawn()
-    {
-        return null;
-    }
+
 }
