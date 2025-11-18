@@ -5,7 +5,6 @@ public class MeleePets : Pet
     private  void Awake()
     {
         InitializeComponents();
-        // ตั้งค่าสเตตเริ่มต้นของ Enemy
         Initialized(10, 500, 4, 4f, 0.5f);
 
         // หาเจ้าของ (Player)
@@ -23,5 +22,10 @@ public class MeleePets : Pet
     void Update()
     {
         UpdateBehavior();
+    }
+
+    private void OnEnable()
+    {
+        
     }
 }

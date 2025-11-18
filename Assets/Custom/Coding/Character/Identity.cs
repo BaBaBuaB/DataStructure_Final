@@ -3,7 +3,8 @@ using UnityEngine;
 public abstract class Identity : MonoBehaviour
 {
     private int speed;
-    private int attack;
+    private float attack;
+    protected float baseAttack;
     protected Rigidbody2D rb;
 
     public int Speed
@@ -11,10 +12,10 @@ public abstract class Identity : MonoBehaviour
         get { return speed; }
         set { speed = value; }
     }
-    public int Attack
+    public float Attack
     { 
         get { return attack; } 
-        set { attack = value; } 
+        set { attack = Mathf.Clamp(value,baseAttack,1000); } 
     }
 
     public abstract void Move();

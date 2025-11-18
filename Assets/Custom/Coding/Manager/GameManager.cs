@@ -9,11 +9,10 @@ public class GameManager : MonoBehaviour
         public float enemyHealthBuff, enemyDamageBuff, playerDamageNerf;
         public int extraMonsterCap;
         public int worldTier;
-        public int extraMon;
     }
     private static GameManager instance;
     [SerializeField]private UIManager UIManager;
-    
+    [SerializeField]private Player player;
 
     void Awake()
     {
@@ -32,32 +31,13 @@ public class GameManager : MonoBehaviour
         return instance;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void CompleteState()
     {
-        worldTier = 1;
-        extraMon = 0;
-    }
+        if (StatusController.Instance == null) return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        StatusController.Instance.IncreaseWorldTier();
 
-    public void CheckCompleteState()
-    {
-       
-        bool isStateComplete = true; //สมมติว่าเช็คแล้วว่าผ่าน
-
-        if (isStateComplete)
-        {
-            worldTier++;
-            if (StatusController.Instance != null)
-            {
-                StatusController.Instance.IncreaseWorldTier();
-            }
-            
-        }
+        player.Attack = player.Attack * StatusController.Instance.CurrentStats.playerDamageNerf;
+        player.SetStatPet();
     }
 }

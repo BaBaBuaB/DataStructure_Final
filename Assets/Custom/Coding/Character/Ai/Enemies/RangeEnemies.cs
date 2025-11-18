@@ -6,13 +6,12 @@ public class RangeEnemies : Enemies
     [SerializeField] private float shootPointDistance = 0.5f;
 
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private GameObject bullet;
 
     private void Awake()
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(100, 10, 500, 12, 10f, 1.1f);
+        Initialized(100, 10, 500, 12, 10f, 1.1f, "Range_Enemy");
 
         // หา Player เป็นเป้าหมายเริ่มต้น
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -50,11 +49,14 @@ public class RangeEnemies : Enemies
             attackTimer = nextAttackTime;
 
             // ยิงกระสุน
-            if (bullet != null && shootPoint != null)
+            if (shootPoint != null)
             {
-                GameObject projectile = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
-                // TODO: ตั้งค่า damage และ target ให้กระสุน
-                Debug.Log($"{gameObject.name}: ยิงกระสุนใส่ผู้เล่น!");
+                var bullet = ObjectPool.instance.Spawn("Bullet_Enemy");
+                Bullet o = bullet.GetComponent<Bullet>();
+
+                o.Attack = Attack;
+                bullet.transform.SetPositionAndRotation(shootPoint.transform.position, shootPoint.transform.rotation);
+
             }
         }
     }
@@ -75,4 +77,13 @@ public class RangeEnemies : Enemies
         Vector2 offset = direction * shootPointDistance;
         shootPoint.position = (Vector2)transform.position + offset;
     }
+
+    /*
+    private void OnEnable()
+    {
+        Attack = Attack * StatusController.Instance.CurrentStats.enemyDamageBuff;
+        maxHealth = maxHealth * StatusController.Instance.CurrentStats.enemyHealthBuff;
+        Health = maxHealth;
+    }
+    */
 }

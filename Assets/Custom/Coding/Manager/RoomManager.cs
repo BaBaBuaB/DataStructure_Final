@@ -5,7 +5,7 @@ public class RoomManager : MonoBehaviour
 {
     [SerializeField]private GameObject[] gates;
     [SerializeField]private EnemySpawner[] spawners;
-    
+    [SerializeField] private GameObject prize;
 
     private int enemiesInScene; //จำนวน enemy ใน scene ปัจจุบัน
     [SerializeField] private int enemiesCount; //จำนวนที่เหลือสำหรับ spawn เพิ่ม
@@ -13,8 +13,12 @@ public class RoomManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.gameObject.CompareTag("Player")) return;
+
+        enemiesCount += StatusController.Instance.CurrentStats.extraMonsterCap;
+
         // ล็อคห้อง //
-        foreach(var gate in gates)
+        foreach (var gate in gates)
         {
             gate.SetActive(true);
         }
@@ -50,9 +54,17 @@ public class RoomManager : MonoBehaviour
     }
     private void RoomComplete()
     {
+        var prizes = ObjectPool.instance.Spawn("Key");
+        prizes.transform.position = prizes.transform.position;
+
         foreach(var gate in gates)
         {
             gate.SetActive(false);
+        }
+
+        if (gameObject.name == "Room_Boss")
+        {
+            GameManager.GetInstance().CompleteState();
         }
     }
 }

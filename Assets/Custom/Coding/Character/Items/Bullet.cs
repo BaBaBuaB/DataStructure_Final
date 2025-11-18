@@ -49,15 +49,25 @@ public class Bullet : Identity
     {
         if (collision.gameObject.CompareTag("Obstacles"))
         {
-            Destroy(gameObject);
+            ObjectPool.instance.Return(gameObject,ownerBullet);
         }
-        else if(collision.gameObject.TryGetComponent<Enemies>(out Enemies enemies) )
+        else if(collision.gameObject.TryGetComponent<Enemies>(out Enemies enemies) && (ownerBullet == "Player" || ownerBullet == "Bullet_Pet"))
         {
             enemies.TakeDamages(Attack);
+
+            if (ownerBullet == "Player")
+            {
+                ObjectPool.instance.Return(gameObject, "Bullet_Enemy");
+            }
+            else
+            {
+                ObjectPool.instance.Return(gameObject, ownerBullet);
+            }
         }
-        else if (collision.gameObject.TryGetComponent<Player>(out Player player))
+        else if (collision.gameObject.TryGetComponent<Player>(out Player player) && ownerBullet == "Bullet_Enemy")
         {
             player.TakeDamages(Attack);
+            ObjectPool.instance.Return(gameObject, ownerBullet);
         }
         else if(collision.gameObject.name == "Barrir")
         {

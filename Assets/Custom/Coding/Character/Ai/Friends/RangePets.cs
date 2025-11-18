@@ -6,7 +6,6 @@ public class RangePets : Pet
     [SerializeField] private float shootPointDistance = 0.5f;
 
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private GameObject bullet;
 
     private void Awake()
     {
@@ -17,7 +16,7 @@ public class RangePets : Pet
         // หาเจ้าของ (Player)
         if (owner == null)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.Find("Player");
             if (player != null)
             {
                 owner = player.GetComponent<Player>();
@@ -46,19 +45,21 @@ public class RangePets : Pet
         if (targetTransform == null || attackTimer > 0) return;
 
         // ตรวจสอบว่าเป้าหมายยังมีชีวิตอยู่
-        IDamageable damageable = targetTransform.GetComponent<IDamageable>();
-        if (damageable == null || damageable.IsDeath()) return;
+        /*IDamageable damageable = targetTransform.GetComponent<IDamageable>();
+        if (damageable == null || damageable.IsDeath()) return;*/
 
         float distance = GetDistanceToTarget();
         if (distance <= attackRange)
         {
             attackTimer = nextAttackTime;
             // ยิงกระสุน
-            if (bullet != null && shootPoint != null)
+            if (shootPoint != null)
             {
-                GameObject projectile = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
-                // TODO: ตั้งค่า damage และ target ให้กระสุน
-                Debug.Log($"{gameObject.name}: ยิงกระสุนใส่ศัตรู!");
+                var bullet = ObjectPool.instance.Spawn("Bullet_Pet");
+                Bullet o = bullet.GetComponent<Bullet>();
+
+                o.Attack = Attack;
+                bullet.transform.SetPositionAndRotation(shootPoint.transform.position,shootPoint.transform.rotation);
             }
         }
     }

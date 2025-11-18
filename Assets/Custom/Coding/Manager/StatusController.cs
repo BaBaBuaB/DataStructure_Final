@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using static GameManager;
 
 
 public class StatusController : MonoBehaviour
@@ -10,7 +11,7 @@ public class StatusController : MonoBehaviour
     public int CurrentWorldTier { get; private set; } = 1;
     public GameManager.WorldTierStats CurrentStats { get; private set; }
     
-    private Dictionary<int, WorldTierStats> tierStatsData;
+    public Dictionary<int, WorldTierStats> tierStatsData;
 
     void Awake()
     {
@@ -30,12 +31,6 @@ public class StatusController : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
-    
     private void InitializeTierData()
     {
         tierStatsData = new Dictionary<int, WorldTierStats>();

@@ -4,12 +4,15 @@ public class Enemies : BaseAi, IDamageable
 {
     #region "Enemy Parameters"
     [Header("Enemy Stats")]
-    private int health;
-    public int Health
+    private float health;
+    [SerializeField]protected float maxHealth;
+    public float Health
     {
         get { return health; }
-        set { health = value; }
+        set { health = Mathf.Clamp(value, 0, maxHealth); }
     }
+
+    protected string tag = "";
 
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected LayerMask obstacleLayer;
@@ -23,7 +26,7 @@ public class Enemies : BaseAi, IDamageable
     private bool isChasing = false;
     #endregion
 
-    protected void Initialized(int hp, int atk, int spd, int detect, float atkRang, float atkCoolDown)
+    protected void Initialized(int hp, int atk, int spd, int detect, float atkRang, float atkCoolDown,string nameTag)
     {
         Health = hp;
         Attack = atk;
@@ -31,6 +34,8 @@ public class Enemies : BaseAi, IDamageable
         detectRange = detect;
         attackRange = atkRang;
         nextAttackTime = atkCoolDown;
+        maxHealth = hp;
+        tag = nameTag;
     }
     #region "Item Drop"
     private void DropItem()
@@ -50,7 +55,7 @@ public class Enemies : BaseAi, IDamageable
     #endregion
 
     #region "IDamageable Implementation"
-    public void TakeDamages(int damages)
+    public void TakeDamages(float damages)
     {
         if (IsDeath()) return;
 
@@ -60,7 +65,11 @@ public class Enemies : BaseAi, IDamageable
         if (Health <= 0)
         {
             DropItem();
-            Destroy(gameObject);
+
+            Attack = baseAttack;
+            Health = maxHealth;
+
+            ObjectPool.instance.Return(gameObject,tag);
         }
     }
 
