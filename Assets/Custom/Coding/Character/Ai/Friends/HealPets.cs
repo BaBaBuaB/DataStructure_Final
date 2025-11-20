@@ -11,7 +11,7 @@ public class HealPets : Pet
         // หาเจ้าของ (Player)
         if (owner == null)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.Find("Player");
             if (player != null)
             {
                 owner = player.GetComponent<Player>();

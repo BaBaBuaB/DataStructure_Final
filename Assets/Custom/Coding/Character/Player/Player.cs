@@ -12,8 +12,9 @@ public class Player : Identity, IDamageable
         set { health = Mathf.Clamp(value,0,maxHealth); }
     }
 
-    public int countItems;
+    public int keyCount;
     public int poolsPet;
+    public int currentPet = 0;
     public List<Pet> pets;
 
     private PlayerInput playerInput;
@@ -35,7 +36,7 @@ public class Player : Identity, IDamageable
 
     private void Awake()
     {
-        Initialized(100,10,400);
+        Initialized(100,10,700);
 
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
@@ -85,19 +86,19 @@ public class Player : Identity, IDamageable
     {
         switch(items.nameItem)
         {
-            case "AttackPotion": Attack += items.valueItem;
+            case "Attack_Potion": Attack += items.valueItem;
                 SetStatPet();
                 break;
-            case "HealPotion": Health += items.valueItem;
+            case "Health_Potion": Health += items.valueItem;
                 maxHealth += items.valueItem/2;
                 break;
-            case "Key": countItems += items.valueItem;
+            case "Key": keyCount += items.valueItem;
                 break;
             default: Debug.Log("NothingHappen");
                 break;
         }
 
-        ObjectPool.instance.Return(items.gameObject,"");
+        ObjectPool.instance.Return(items.gameObject,items.nameItem);
     }
 
     public override void Move()
@@ -147,7 +148,6 @@ public class Player : Identity, IDamageable
         {
             return;
         }
-
         else if (collision.gameObject.CompareTag("Items"))
         {
             Items item = collision.gameObject.GetComponent<Items>();
@@ -157,22 +157,28 @@ public class Player : Identity, IDamageable
                 GetItems(item);
             }
         }
+        else if(collision.gameObject.CompareTag("Door"))
+        {
+            if (keyCount > 0)
+            {
+                collision.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void SummonPets()
     {
         if (pets.Count >= poolsPet) return;
 
-        int random = 0;
         string petTag = "";
 
-        if (pets.Count <= 0 || random >= 3) random = 0;
-        else { random++; }
+        if (pets.Count <= 0 || currentPet >= 3) currentPet = 0;
+        else { currentPet++; }
 
-        if (random == 0) petTag = "Range_Pet";
-        else if (random == 1) petTag = "Melee_Pet";
-        else if (random == 2) petTag = "Heal_Pet";
-        else if (random == 3) petTag = "Devour_Pet";
+        if (currentPet == 0) petTag = "Melee_Pet";
+        else if (currentPet == 1) petTag = "Range_Pet";
+        else if (currentPet == 2) petTag = "Heal_Pet";
+        else if (currentPet == 3) petTag = "Devour_Pet";
 
         var newPet = ObjectPool.instance.Spawn(petTag);
 

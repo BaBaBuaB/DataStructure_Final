@@ -140,6 +140,7 @@ MonoBehaviour:
   detectRange: 0
   attackRange: 0
   nextAttackTime: 0
+  maxHealth: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -147,9 +148,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   enemyLevel: 0
-  itemDrop: []
+  itemDrop: {fileID: 539915673067680023, guid: 0254aa2dc01dd2447b96b99f657e36b2, type: 3}
   chaseRange: 15
   giveUpDistance: 25
+  roomManager: {fileID: 0}
 --- !u!61 &6597535406230037534
 BoxCollider2D:
   m_ObjectHideFlags: 0

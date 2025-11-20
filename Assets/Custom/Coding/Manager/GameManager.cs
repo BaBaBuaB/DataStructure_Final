@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         if (StatusController.Instance == null) return;
 
+        Debug.Log("Complete State!");
         StatusController.Instance.IncreaseWorldTier();
 
         player.Attack = player.Attack * StatusController.Instance.CurrentStats.playerDamageNerf;

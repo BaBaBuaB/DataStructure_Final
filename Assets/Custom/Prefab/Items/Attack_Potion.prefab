@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7682466284573259448}
   - component: {fileID: 4271283026712824539}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: flasks_3_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: da4dc7a00b7966c499413e398dc4a78e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,9 +98,9 @@ GameObject:
   - component: {fileID: 414921017009705543}
   - component: {fileID: 614057342169871745}
   - component: {fileID: 2510144016359545753}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Attack_Potion
-  m_TagString: Untagged
+  m_TagString: Items
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,5 +179,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f1b7c6d61d9e54cb06b5d4baea63a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameItem: AttackPotion
+  nameItem: Attack_Potion
   valueItem: 5

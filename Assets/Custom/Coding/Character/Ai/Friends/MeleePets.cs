@@ -5,12 +5,12 @@ public class MeleePets : Pet
     private  void Awake()
     {
         InitializeComponents();
-        Initialized(10, 500, 4, 4f, 0.5f);
+        Initialized(10, 600, 4, 2f, 0.5f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.Find("Player");
             if (player != null)
             {
                 owner = player.GetComponent<Player>();
@@ -22,10 +22,5 @@ public class MeleePets : Pet
     void Update()
     {
         UpdateBehavior();
-    }
-
-    private void OnEnable()
-    {
-        
     }
 }

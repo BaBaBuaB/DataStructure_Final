@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5172190705956690262}
   - component: {fileID: 6772169061874275456}
   - component: {fileID: 7373035797019297739}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Health_Potion
-  m_TagString: Untagged
+  m_TagString: Items
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f1b7c6d61d9e54cb06b5d4baea63a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameItem: HealPotion
+  nameItem: Health_Potion
   valueItem: 10
 --- !u!1 &5545884988880297993
 GameObject:
@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7169765394783723847}
   - component: {fileID: 5583725159367761980}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: flasks_4_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: bee66bee56e2e29459d0708a0f0a9036, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

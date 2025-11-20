@@ -11,7 +11,7 @@ public class RangePets : Pet
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(10, 500, 12, 10f, 1.1f);
+        Initialized(10, 500, 12, 5f, 1.1f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
@@ -44,10 +44,6 @@ public class RangePets : Pet
     {
         if (targetTransform == null || attackTimer > 0) return;
 
-        // ตรวจสอบว่าเป้าหมายยังมีชีวิตอยู่
-        /*IDamageable damageable = targetTransform.GetComponent<IDamageable>();
-        if (damageable == null || damageable.IsDeath()) return;*/
-
         float distance = GetDistanceToTarget();
         if (distance <= attackRange)
         {
@@ -59,6 +55,7 @@ public class RangePets : Pet
                 Bullet o = bullet.GetComponent<Bullet>();
 
                 o.Attack = Attack;
+                o.ownerBullet = "Bullet_Pet";
                 bullet.transform.SetPositionAndRotation(shootPoint.transform.position,shootPoint.transform.rotation);
             }
         }

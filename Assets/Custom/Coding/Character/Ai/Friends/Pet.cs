@@ -6,7 +6,7 @@ public class Pet : BaseAi
     #region "Pet Parameters"
     [Header("Follow Settings")]
     [SerializeField] protected Player owner; // ผู้เล่น
-    [SerializeField] protected float followDistance = 3f; // ระยะห่างที่ติดตาม
+    [SerializeField] protected float followDistance = 2f; // ระยะห่างที่ติดตาม
 
     [Header("Combat Settings")]
     [SerializeField] protected LayerMask enemyLayer;
@@ -158,7 +158,6 @@ public class Pet : BaseAi
     {
         if (targetTransform == null || attackTimer > 0) return;
 
-        // ตรวจสอบว่าเป้าหมายมี IDamageable และยังไม่ตาย
         IDamageable damageable = targetTransform.GetComponent<IDamageable>();
         if (damageable == null || damageable.IsDeath()) return;
 
@@ -167,7 +166,7 @@ public class Pet : BaseAi
         {
             attackTimer = nextAttackTime;
             damageable.TakeDamages(Attack);
-            Debug.Log($"{gameObject.name}: โจมตีศัตรู! ดาเมจ {Attack}");
+            //Debug.Log($"{gameObject.name}: โจมตีศัตรู! ดาเมจ {Attack}");
         }
     }
     #endregion

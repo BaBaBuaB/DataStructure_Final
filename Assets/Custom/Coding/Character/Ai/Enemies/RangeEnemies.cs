@@ -11,14 +11,7 @@ public class RangeEnemies : Enemies
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(100, 10, 500, 12, 10f, 1.1f, "Range_Enemy");
-
-        // หา Player เป็นเป้าหมายเริ่มต้น
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            targetTransform = player.transform;
-        }
+        Initialized(20, 10, 500, 7, 6.5f, 1.1f, "Range_Enemy");
 
         detectRange = (int)chaseRange;
     }
@@ -55,6 +48,7 @@ public class RangeEnemies : Enemies
                 Bullet o = bullet.GetComponent<Bullet>();
 
                 o.Attack = Attack;
+                o.ownerBullet = "Bullet_Enemy";
                 bullet.transform.SetPositionAndRotation(shootPoint.transform.position, shootPoint.transform.rotation);
 
             }
@@ -78,7 +72,6 @@ public class RangeEnemies : Enemies
         shootPoint.position = (Vector2)transform.position + offset;
     }
 
-    /*
     private void OnEnable()
     {
         Attack = Attack * StatusController.Instance.CurrentStats.enemyDamageBuff;
@@ -86,4 +79,11 @@ public class RangeEnemies : Enemies
         Health = maxHealth;
     }
     */
+
+    private void OnDisable()
+    {
+        maxHealth = 100;
+        Attack = baseAttack;
+        roomManager = null;
+    }
 }

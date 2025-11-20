@@ -10,10 +10,11 @@ public class RoomManager : MonoBehaviour
     private int enemiesInScene; //จำนวน enemy ใน scene ปัจจุบัน
     [SerializeField] private int enemiesCount; //จำนวนที่เหลือสำหรับ spawn เพิ่ม
 
-
+    private Player player;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+        player = collision.GetComponent<Player>();
 
         enemiesCount += StatusController.Instance.CurrentStats.extraMonsterCap;
 
@@ -54,8 +55,10 @@ public class RoomManager : MonoBehaviour
     }
     private void RoomComplete()
     {
+        Debug.Log("Complete Room!");
         var prizes = ObjectPool.instance.Spawn("Key");
-        prizes.transform.position = prizes.transform.position;
+        prizes.transform.SetLocalPositionAndRotation(prize.transform.position,prize.transform.rotation);
+        player.SummonPets();
 
         foreach(var gate in gates)
         {
@@ -66,5 +69,7 @@ public class RoomManager : MonoBehaviour
         {
             GameManager.GetInstance().CompleteState();
         }
+
+        Destroy(gameObject);
     }
 }

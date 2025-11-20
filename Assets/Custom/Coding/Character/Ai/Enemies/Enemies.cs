@@ -5,7 +5,7 @@ public class Enemies : BaseAi, IDamageable
     #region "Enemy Parameters"
     [Header("Enemy Stats")]
     private float health;
-    [SerializeField]protected float maxHealth;
+    [SerializeField] protected float maxHealth;
     public float Health
     {
         get { return health; }
@@ -17,39 +17,39 @@ public class Enemies : BaseAi, IDamageable
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected LayerMask obstacleLayer;
     [SerializeField] public int enemyLevel;
-    [SerializeField] public GameObject[] itemDrop;
+    [SerializeField] public GameObject itemDrop;
 
     [Header("AI Behavior")]
     [SerializeField] protected float chaseRange = 15f;
     [SerializeField] protected float giveUpDistance = 25f;
 
     private bool isChasing = false;
+
+    public RoomManager roomManager;
     #endregion
 
     protected void Initialized(int hp, int atk, int spd, int detect, float atkRang, float atkCoolDown,string nameTag)
     {
+        maxHealth = hp;
         Health = hp;
         Attack = atk;
         Speed = spd;
         detectRange = detect;
         attackRange = atkRang;
         nextAttackTime = atkCoolDown;
-        maxHealth = hp;
         tag = nameTag;
     }
     #region "Item Drop"
     private void DropItem()
     {
-        if (itemDrop == null || itemDrop.Length == 0) return;
+        if (itemDrop == null ) return;
 
-        // สุ่มดรอปไอเทม
-        int randomIndex = Random.Range(0, itemDrop.Length);
-        GameObject item = itemDrop[randomIndex];
 
-        if (item != null)
+        if (itemDrop != null)
         {
-            Instantiate(item, transform.position, Quaternion.identity);
-            Debug.Log($"{gameObject.name} ดรอปไอเทม: {item.name}");
+            var item = ObjectPool.instance.Spawn(itemDrop.name);
+            item.transform.SetLocalPositionAndRotation(gameObject.transform.position,gameObject.transform.rotation);
+            Debug.Log($"{gameObject.name} ดรอปไอเทม: {itemDrop.name}");
         }
     }
     #endregion
@@ -60,7 +60,7 @@ public class Enemies : BaseAi, IDamageable
         if (IsDeath()) return;
 
         Health -= damages;
-        Debug.Log($"{gameObject.name} รับดาเมจ {damages}! HP เหลือ: {Health}");
+        //Debug.Log($"{gameObject.name} รับดาเมจ {damages}! HP เหลือ: {Health}");
 
         if (Health <= 0)
         {
@@ -68,6 +68,11 @@ public class Enemies : BaseAi, IDamageable
 
             Attack = baseAttack;
             Health = maxHealth;
+
+            if (roomManager != null)
+            {
+                roomManager.OnEnemiesDeath();
+            }
 
             ObjectPool.instance.Return(gameObject,tag);
         }
@@ -107,6 +112,7 @@ public class Enemies : BaseAi, IDamageable
 
         // เริ่มไล่ตามถ้าอยู่ในระยะ
         isChasing = distanceToTarget <= chaseRange;
+
     }
 
     protected override void Behavior()
@@ -170,17 +176,16 @@ public class Enemies : BaseAi, IDamageable
     {
         if (targetTransform == null || attackTimer > 0) return;
 
+        Player damageable = targetTransform.GetComponent<Player>();
+        if (damageable == null || damageable.IsDeath()) return;
+
         float distance = GetDistanceToTarget();
         if (distance <= attackRange)
         {
             attackTimer = nextAttackTime;
 
-            Player damageable = targetTransform.GetComponent<Player>();
-            if (damageable != null)
-            {
-                damageable.TakeDamages(Attack);
-                Debug.Log($"{gameObject.name}: โจมตีเป้าหมาย! ดาเมจ {Attack}");
-            }
+            damageable.TakeDamages(Attack);
+            Debug.Log($"{gameObject.name}: โจมตีเป้าหมาย! ดาเมจ {Attack}");
         }
     }
     #endregion
@@ -192,5 +197,13 @@ public class Enemies : BaseAi, IDamageable
         Vector2 direction = target.position - transform.position;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, direction.magnitude, obstacleLayer);
         return hit.collider == null;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Room_Manager") && roomManager == null)
+        {
+            roomManager = gameObject.GetComponent<RoomManager>();
+        }
     }
 }

@@ -57,7 +57,8 @@ public class Bullet : Identity
 
             if (ownerBullet == "Player")
             {
-                ObjectPool.instance.Return(gameObject, "Bullet_Enemy");
+                ownerBullet = "Bullet_Enemy";
+                ObjectPool.instance.Return(gameObject, ownerBullet);
             }
             else
             {

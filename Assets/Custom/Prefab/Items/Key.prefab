@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1264694209524712104}
   - component: {fileID: 7981024223616806339}
   - component: {fileID: 8774856004971475737}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Key
-  m_TagString: Untagged
+  m_TagString: Items
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668523161783250687}
   - component: {fileID: 5934266054911095421}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: keys_1_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: c746e26e72b793d43a3fe5bdc01dd5c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

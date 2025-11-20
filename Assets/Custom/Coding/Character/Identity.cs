@@ -4,7 +4,7 @@ public abstract class Identity : MonoBehaviour
 {
     private int speed;
     private float attack;
-    protected float baseAttack;
+    protected float baseAttack = 10;
     protected Rigidbody2D rb;
 
     public int Speed

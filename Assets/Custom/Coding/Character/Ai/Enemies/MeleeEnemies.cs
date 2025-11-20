@@ -6,14 +6,7 @@ public class MeleeEnemies : Enemies
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(100, 10, 500, 4, 3f, 0.5f, "Melee_Enemy");
-
-        // หา Player เป็นเป้าหมายเริ่มต้น
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            targetTransform = player.transform;
-        }
+        Initialized(30, 10, 500, 4, 1.5f, 0.5f, "Melee_Enemy");
 
         detectRange = (int)chaseRange;
     }
@@ -34,8 +27,9 @@ public class MeleeEnemies : Enemies
 
     private void OnDisable()
     {
+        maxHealth = 100;
         Attack = baseAttack;
-        Health = maxHealth;
+        roomManager = null;
     }
     
 }

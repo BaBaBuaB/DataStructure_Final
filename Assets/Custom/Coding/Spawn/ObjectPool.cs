@@ -53,6 +53,7 @@ public class ObjectPool : MonoBehaviour
     {
         if (poolDict.ContainsKey(tag))
         {
+            obj.gameObject.transform.SetLocalPositionAndRotation(gameObject.transform.position,gameObject.transform.rotation);
             poolDict[tag].Push(obj);
             obj.SetActive(false);
         }

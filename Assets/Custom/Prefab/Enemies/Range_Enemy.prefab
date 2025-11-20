@@ -163,9 +163,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   enemyLevel: 0
-  itemDrop: []
+  itemDrop: {fileID: 7476945109247645417, guid: 7c57ff977a5296b489d64a37ae0fb580, type: 3}
   chaseRange: 15
   giveUpDistance: 25
+  roomManager: {fileID: 0}
   shootPointDistance: 0.5
   shootPoint: {fileID: 900022337861212251}
 --- !u!1 &6057971357444734226
