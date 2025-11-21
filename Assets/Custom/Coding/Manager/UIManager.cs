@@ -2,28 +2,73 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField]private GameObject startGameUi;
-    [SerializeField]private GameObject inGameUi;
-    [SerializeField]private GameObject settingUi;
-    [SerializeField]private GameObject endGameUi;
+    // UI manager จะควบคุมการทำงาน เปิด / ปิด ของ UI ทุกตัวยกเว้น mainmenu //
 
-    public void CallStartUi()
+    //[SerializeField]private GameObject startGameUi;
+    public static UIManager instance;
+    [SerializeField]private HealthSlider healthUi;
+    [SerializeField]private GameObject slimeStatsUi;
+    [SerializeField]private GameObject gameOverUi;
+    [SerializeField]private GameObject gameWinUi;
+
+    void Awake()
     {
-        
+        instance = this;
+
+        CloseSlimeStatesUi();
+        CloseGameOverUi();
+        CloseGameWonUi();
     }
 
-    public void CallInGameUi()
+    void Update()
     {
-        
+        //hold tab to see all slime's skill
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            CallSlimeStatesUi();
+        }
+
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            CloseSlimeStatesUi();
+        }
     }
 
-    public void CallSettingUi() 
+    // Slime Stats //
+    public void CallSlimeStatesUi()
     {
-
+        slimeStatsUi.SetActive(true);
     }
 
-    public void CallEndUi() 
+    public void CloseSlimeStatesUi()
     {
+        slimeStatsUi.SetActive(false);
+    }
 
+    // Game Over //
+    public void CallGameOverUi() 
+    {
+        gameOverUi.SetActive(true);
+    }
+    public void CloseGameOverUi()
+    {
+        gameOverUi.SetActive(false);
+    }
+
+    // Gane Won //
+    public void CallGameWonUi() 
+    {
+        gameWinUi.SetActive(true);
+    }
+    public void CloseGameWonUi()
+    {
+        gameWinUi.SetActive(false);
+    }
+
+    // HP //
+    public void UpdateHealth(float hpValue)
+    {
+        //เรียก 1 ครั้งใน method awake ของ player จากนั้นเรียกทุกครั้งที่เลือดเพิ่มหรือลด
+        healthUi.UpdateHP(hpValue);
     }
 }
