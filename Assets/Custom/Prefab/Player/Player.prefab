@@ -98,8 +98,8 @@ GameObject:
   - component: {fileID: 7808562723979172020}
   - component: {fileID: 6109559824871134019}
   - component: {fileID: 8583593978671516753}
-  - component: {fileID: 8257049284332093577}
   - component: {fileID: 214935806949214640}
+  - component: {fileID: 8257049284332093577}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -120,8 +120,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1.0438, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4681050155871853111}
   - {fileID: 9110780318222030119}
+  - {fileID: 4681050155871853111}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6109559824871134019
@@ -197,23 +197,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8257049284332093577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164642238398703110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6f2894b1c9c8f74088e4ae56ee84929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  countItems: 0
-  poolsPet: 0
-  pets: []
-  coolDown: 3
-  barriar: {fileID: 8385015558540965223}
 --- !u!114 &214935806949214640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +227,25 @@ MonoBehaviour:
   m_DefaultActionMap: Controller
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8257049284332093577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164642238398703110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f2894b1c9c8f74088e4ae56ee84929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  keyCount: 0
+  poolsPet: 0
+  currentPet: 0
+  pets: []
+  coolDown: 3
+  barriar: {fileID: 8385015558540965223}
 --- !u!1 &8385015558540965223
 GameObject:
   m_ObjectHideFlags: 0

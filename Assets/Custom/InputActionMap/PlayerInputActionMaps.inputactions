@@ -85,7 +85,7 @@
                     "name": "",
                     "id": "426e0557-e981-4dba-8caa-735ea2580837",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "BlockBullet",

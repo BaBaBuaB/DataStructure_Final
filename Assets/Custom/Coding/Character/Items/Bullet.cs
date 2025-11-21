@@ -24,6 +24,8 @@ public class Bullet : Identity
 
     public void Reflex(string newOwner, Collision2D collision)
     {
+        Debug.Log("Reflex");
+
         ownerBullet = newOwner;
         gameObject.transform.Rotate(0,0,-1);
 
@@ -47,6 +49,13 @@ public class Bullet : Identity
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Barriar"))
+        {
+            Debug.Log("!");
+            Reflex("Player", collision);
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Obstacles"))
         {
             ObjectPool.instance.Return(gameObject,ownerBullet);
@@ -65,14 +74,11 @@ public class Bullet : Identity
                 ObjectPool.instance.Return(gameObject, ownerBullet);
             }
         }
-        else if (collision.gameObject.TryGetComponent<Player>(out Player player) && ownerBullet == "Bullet_Enemy")
+        else if (collision.gameObject.CompareTag("Player") && ownerBullet == "Bullet_Enemy")
         {
+            var player = collision.gameObject.GetComponent<Player>();
             player.TakeDamages(Attack);
             ObjectPool.instance.Return(gameObject, ownerBullet);
-        }
-        else if(collision.gameObject.name == "Barrir")
-        {
-            Reflex("Player",collision);
         }
     }
 }

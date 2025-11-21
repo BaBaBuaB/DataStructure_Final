@@ -198,12 +198,4 @@ public class Enemies : BaseAi, IDamageable
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, direction.magnitude, obstacleLayer);
         return hit.collider == null;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Room_Manager") && roomManager == null)
-        {
-            roomManager = gameObject.GetComponent<RoomManager>();
-        }
-    }
 }

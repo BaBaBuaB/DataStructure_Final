@@ -109,14 +109,15 @@ public class Player : Identity, IDamageable
     }
     private void Block()
     {
-        if (blockAction.triggered && timerCoolDown <= 0)
+        if (blockAction.inProgress && timerCoolDown <= 0)
         {
+            //Debug.Log("Active shield!");
             barriar.SetActive(true);
             timerCoolDown = coolDown;
         }
         else
         {
-            barriar.SetActive(false);
+            //barriar.SetActive(false);
         }
     }
 

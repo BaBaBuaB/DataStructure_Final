@@ -51,6 +51,7 @@ public abstract class BaseAi : Identity
         if (attackTimer > 0)
         {
             attackTimer -= Time.deltaTime;
+            return;
         }
 
         UpdateTarget();
