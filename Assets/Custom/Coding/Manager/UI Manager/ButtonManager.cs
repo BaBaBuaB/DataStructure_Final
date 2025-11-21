@@ -5,7 +5,7 @@ public class ButtonManager : MonoBehaviour
 {
     public void StartButton()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Dungeon_map");
     }
 
     public void ExitButton()
@@ -15,7 +15,7 @@ public class ButtonManager : MonoBehaviour
 
     public void RetryButton()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }
