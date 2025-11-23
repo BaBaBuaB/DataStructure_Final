@@ -78,7 +78,7 @@ public class RangeEnemies : Enemies
         maxHealth = maxHealth * StatusController.Instance.CurrentStats.enemyHealthBuff;
         Health = maxHealth;
     }
-    */
+    
 
     private void OnDisable()
     {
