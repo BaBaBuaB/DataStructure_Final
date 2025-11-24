@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : Identity, IDamageable
 {
     private float health;
-    [SerializeField]private float maxHealth = 100;
+    public float maxHealth = 100;
     public float Health
     { 
         get { return health; }
@@ -21,10 +22,13 @@ public class Player : Identity, IDamageable
     private InputActionMap inputActionsMap;
     private InputAction moveAction;
     private InputAction blockAction;
+    private InputAction closeGuide;
 
-    [SerializeField]private float coolDown = 3;
+    [SerializeField]private float coolDown = 5;
     private float timerCoolDown;
+    private float duration = 2;
     public GameObject barriar;
+    public bool barriarActive = false;
 
     private void Initialized(int hp, int atk, int spd)
     {
@@ -37,12 +41,14 @@ public class Player : Identity, IDamageable
     private void Awake()
     {
         Initialized(100,10,700);
+        UIManager.instance.UpdateHealth(Health,maxHealth);
 
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         inputActionsMap = playerInput.actions.FindActionMap("Controller");
         moveAction = inputActionsMap.FindAction("Move");
         blockAction = inputActionsMap.FindAction("BlockBullet");
+        closeGuide = inputActionsMap.FindAction("CloseAction");
 
         SummonPets();
     }
@@ -57,22 +63,35 @@ public class Player : Identity, IDamageable
 
         Move();
         Block();
+        CloseUi();
 
-        timerCoolDown -= 1;
+        if (timerCoolDown  >= 0)
+        {
+            timerCoolDown -= Time.deltaTime;
+        }
     }
 
     #region"InterfaceIDamages"
     public void TakeDamages(float damages)
     {
-        if (IsDeath()) return;
-        
+        if (barriarActive || IsDeath())
+        {
+            return;
+        }
+
         Health -= damages;
-        Debug.Log($"{Health}");
+
+        UpdateHealth();
+        Debug.Log(Health);
+
+        if (IsDeath())
+        {
+            UIManager.instance.CallGameOverUi();
+        }
     }
 
     public bool IsDeath()
     {
-        
         return Health <= 0;
     }
 
@@ -91,6 +110,7 @@ public class Player : Identity, IDamageable
                 break;
             case "Health_Potion": Health += items.valueItem;
                 maxHealth += items.valueItem/2;
+                UpdateHealth();
                 break;
             case "Key": keyCount += items.valueItem;
                 break;
@@ -109,17 +129,33 @@ public class Player : Identity, IDamageable
     }
     private void Block()
     {
-        if (blockAction.inProgress && timerCoolDown <= 0)
+        if (blockAction.triggered && timerCoolDown <= 0 && !barriarActive)
         {
-            //Debug.Log("Active shield!");
-            barriar.SetActive(true);
-            timerCoolDown = coolDown;
+            barriarActive= true;
+            StartCoroutine(ActivateBarrier());
+        }
+    }
+    private void CloseUi()
+    {
+        if (closeGuide.IsPressed())
+        {
+            UIManager.instance.CallSlimeStatesUi();
         }
         else
         {
-            //barriar.SetActive(false);
+            UIManager.instance.CloseSlimeStatesUi();
         }
     }
+
+    private IEnumerator ActivateBarrier()
+    {
+        barriar.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        timerCoolDown = coolDown;
+        barriar.SetActive(false);
+        barriarActive = false;
+    }
+
 
     public void SetStatPet()
     {
@@ -132,14 +168,14 @@ public class Player : Identity, IDamageable
     }
 
     #region"Enable and Disable"
-    private void OnEnable()
-    {
-        inputActionsMap.Enable();
-    }
-
     private void OnDisable()
     {
         inputActionsMap.Disable();
+    }
+
+    private void OnEnable()
+    {
+        inputActionsMap.Enable();
     }
     #endregion
 
@@ -149,7 +185,8 @@ public class Player : Identity, IDamageable
         {
             return;
         }
-        else if (collision.gameObject.CompareTag("Items"))
+
+        if (collision.gameObject.CompareTag("Items"))
         {
             Items item = collision.gameObject.GetComponent<Items>();
 
@@ -186,5 +223,10 @@ public class Player : Identity, IDamageable
         newPet.transform.SetPositionAndRotation(gameObject.transform.position, gameObject.transform.rotation);
 
         pets.Add(newPet.GetComponent<Pet>());
+    }
+
+    public void UpdateHealth()
+    {
+        UIManager.instance.UpdateHealth(Health, maxHealth);
     }
 }

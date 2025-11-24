@@ -68,6 +68,11 @@ public class RoomManager : MonoBehaviour
         if (gameObject.name == "Room_Boss")
         {
             GameManager.GetInstance().CompleteState();
+
+            if (StatusController.Instance.CurrentWorldTier > 3)
+            {
+                UIManager.instance.CallGameWonUi();
+            }
         }
 
         Destroy(gameObject);

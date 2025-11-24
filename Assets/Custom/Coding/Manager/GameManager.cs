@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
         public int extraMonsterCap;
         public int worldTier;
     }
+
     private static GameManager instance;
     [SerializeField]private UIManager UIManager;
     [SerializeField]private Player player;
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            //DontDestroyOnLoad(gameObject); // (ถ้า GameManager ต้องอยู่ตลอด)
+            DontDestroyOnLoad(gameObject); // (ถ้า GameManager ต้องอยู่ตลอด)
         }
         else
         {
@@ -34,6 +35,13 @@ public class GameManager : MonoBehaviour
     public void CompleteState()
     {
         if (StatusController.Instance == null) return;
+
+        if (player == null)
+        {
+            Debug.Log("!");
+            GameObject playerObj = GameObject.Find("Player");
+            player = playerObj.GetComponent<Player>();
+        }
 
         Debug.Log("Complete State!");
         StatusController.Instance.IncreaseWorldTier();

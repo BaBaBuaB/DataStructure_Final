@@ -22,9 +22,9 @@ public class Bullet : Identity
         transform.Translate(Vector2.right *Time.deltaTime* Speed);
     }
 
-    public void Reflex(string newOwner, Collision2D collision)
+    public void Reflect(string newOwner, Collision2D collision)
     {
-        Debug.Log("Reflex");
+        Debug.Log("Reflect");
 
         ownerBullet = newOwner;
         gameObject.transform.Rotate(0,0,-1);
@@ -49,18 +49,13 @@ public class Bullet : Identity
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Barriar"))
+        if (collision.gameObject.CompareTag("Barriar") && ownerBullet == "Bullet_Enemy")
         {
-            Debug.Log("!");
-            Reflex("Player", collision);
+            Debug.Log("Barriar");
             return;
         }
 
-        if (collision.gameObject.CompareTag("Obstacles"))
-        {
-            ObjectPool.instance.Return(gameObject,ownerBullet);
-        }
-        else if(collision.gameObject.TryGetComponent<Enemies>(out Enemies enemies) && (ownerBullet == "Player" || ownerBullet == "Bullet_Pet"))
+        if (collision.gameObject.TryGetComponent<Enemies>(out Enemies enemies) && (ownerBullet == "Player" || ownerBullet == "Bullet_Pet"))
         {
             enemies.TakeDamages(Attack);
 
@@ -77,8 +72,12 @@ public class Bullet : Identity
         else if (collision.gameObject.CompareTag("Player") && ownerBullet == "Bullet_Enemy")
         {
             var player = collision.gameObject.GetComponent<Player>();
+
             player.TakeDamages(Attack);
+
             ObjectPool.instance.Return(gameObject, ownerBullet);
         }
+
+        ObjectPool.instance.Return(gameObject, ownerBullet);
     }
 }

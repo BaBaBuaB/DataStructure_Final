@@ -11,7 +11,7 @@ public class RangeEnemies : Enemies
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(20, 10, 500, 7, 6.5f, 1.1f, "Range_Enemy");
+        Initialized(100, 20, 400, 7, 6.5f, 1.1f, "Range_Enemy");
 
         detectRange = (int)chaseRange;
     }

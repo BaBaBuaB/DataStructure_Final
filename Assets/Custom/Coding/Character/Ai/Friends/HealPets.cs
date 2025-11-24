@@ -34,6 +34,7 @@ public class HealPets : Pet
         {
             attackTimer = nextAttackTime;
             owner.Health += Attack;
+            owner.UpdateHealth();
             Debug.Log($"{gameObject.name}: รักษา {owner.Health}");
         }
     }
@@ -44,7 +45,7 @@ public class HealPets : Pet
 
         FollowOwner();
 
-        if (owner.Health < 90)
+        if (owner.Health <= owner.maxHealth * 0.8)
         {
             AttackTarget();
         }
@@ -52,7 +53,6 @@ public class HealPets : Pet
 
     protected override void UpdateTarget()
     {
-        //base.UpdateTarget();
         targetTransform = owner.GetTransform();
     }
 }

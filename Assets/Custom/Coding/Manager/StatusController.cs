@@ -45,17 +45,17 @@ public class StatusController : MonoBehaviour
 
         
         tierStatsData[2] = new WorldTierStats {
-            enemyHealthBuff = 1.3f,  
-            enemyDamageBuff = 1.15f, 
-            playerDamageNerf = 0.9f, 
+            enemyHealthBuff = 2f,  
+            enemyDamageBuff = 1.5f, 
+            playerDamageNerf = 0.8f, 
             extraMonsterCap = 3      
         };
 
         
         tierStatsData[3] = new WorldTierStats {
-            enemyHealthBuff = 1.6f,  
-            enemyDamageBuff = 1.3f,  
-            playerDamageNerf = 0.8f, 
+            enemyHealthBuff = 3f,  
+            enemyDamageBuff = 2f,  
+            playerDamageNerf = 0.7f, 
             extraMonsterCap = 5      
         };
         
@@ -74,6 +74,7 @@ public class StatusController : MonoBehaviour
         }
         else
         {
+            CurrentWorldTier = nextTier;
             Debug.Log("Max World Tier reached!");
         }
     }
@@ -84,7 +85,6 @@ public class StatusController : MonoBehaviour
         if (tierStatsData.TryGetValue(CurrentWorldTier, out GameManager.WorldTierStats settings))
         {
             CurrentStats = settings;
-            
         }
     }
 }
