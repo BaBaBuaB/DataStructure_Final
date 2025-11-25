@@ -6,7 +6,7 @@ public class Pet : BaseAi
     #region "Pet Parameters"
     [Header("Follow Settings")]
     [SerializeField] protected Player owner; // ผู้เล่น
-    [SerializeField] protected float followDistance = 2f; // ระยะห่างที่ติดตาม
+    [SerializeField] protected float followDistance = 0.5f; // ระยะห่างที่ติดตาม
 
     [Header("Combat Settings")]
     [SerializeField] protected LayerMask enemyLayer;
@@ -75,6 +75,7 @@ public class Pet : BaseAi
             if (distanceToEnemy <= attackRange)
             {
                 rb.linearVelocity = Vector2.zero;
+                animator.SetFloat("speed", 0);
                 AttackTarget();
             }
             else
@@ -105,12 +106,14 @@ public class Pet : BaseAi
                 pathUpdateTimer = 0f;
                 FindPath(owner.GetTransform().position);
             }
+
             Move();
         }
         else
         {
             // อยู่ใกล้เจ้าของพอแล้ว หยุดเคลื่อนที่
             rb.linearVelocity = Vector2.zero;
+            animator.SetFloat("speed", 0);
         }
     }
     #endregion
@@ -147,7 +150,6 @@ public class Pet : BaseAi
 
             if (closestToOwner != null)
             {
-                //Debug.Log("Found Enemy!");
                 targetTransform = closestToOwner;
                 isProtecting = true;
             }
@@ -164,10 +166,16 @@ public class Pet : BaseAi
         float distance = GetDistanceToTarget();
         if (distance <= attackRange)
         {
+            animator.SetTrigger("attack");
             attackTimer = nextAttackTime;
             damageable.TakeDamages(Attack);
-            //Debug.Log($"{gameObject.name}: โจมตีศัตรู! ดาเมจ {Attack}");
         }
     }
     #endregion
+
+    public override void Move()
+    {
+        base.Move();
+        animator.SetFloat("speed",Speed);
+    }
 }

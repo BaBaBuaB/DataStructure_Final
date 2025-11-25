@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 
 public class Enemies : BaseAi, IDamageable
 {
     #region "Enemy Parameters"
     [Header("Enemy Stats")]
     private float health;
-    [SerializeField] protected float maxHealth;
+    public float maxHealth;
     public float Health
     {
         get { return health; }
@@ -26,6 +27,7 @@ public class Enemies : BaseAi, IDamageable
     private bool isChasing = false;
 
     public RoomManager roomManager;
+    public bool notInlistDamages = true;
     #endregion
 
     protected void Initialized(int hp, int atk, int spd, int detect, float atkRang, float atkCoolDown,string nameTag)
@@ -49,7 +51,6 @@ public class Enemies : BaseAi, IDamageable
         {
             var item = ObjectPool.instance.Spawn(itemDrop.name);
             item.transform.SetLocalPositionAndRotation(gameObject.transform.position,gameObject.transform.rotation);
-            Debug.Log($"{gameObject.name} ดรอปไอเทม: {itemDrop.name}");
         }
     }
     #endregion
@@ -59,15 +60,14 @@ public class Enemies : BaseAi, IDamageable
     {
         if (IsDeath()) return;
 
+        animator.SetTrigger("Hit");
         Health -= damages;
-        //Debug.Log($"{gameObject.name} รับดาเมจ {damages}! HP เหลือ: {Health}");
 
-        if (Health <= 0)
+        if (IsDeath())
         {
             DropItem();
 
-            Attack = baseAttack;
-            Health = maxHealth;
+            animator.SetBool("Dead",true);
 
             if (roomManager != null)
             {
@@ -75,6 +75,10 @@ public class Enemies : BaseAi, IDamageable
             }
 
             ObjectPool.instance.Return(gameObject,tag);
+
+            animator.SetBool("Dead", false);
+            Attack = baseAttack;
+            Health = maxHealth;
         }
     }
 
@@ -185,7 +189,6 @@ public class Enemies : BaseAi, IDamageable
             attackTimer = nextAttackTime;
 
             damageable.TakeDamages(Attack);
-            Debug.Log($"{gameObject.name}: โจมตีเป้าหมาย! ดาเมจ {Attack}");
         }
     }
     #endregion

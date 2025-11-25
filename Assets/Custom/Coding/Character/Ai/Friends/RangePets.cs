@@ -11,7 +11,7 @@ public class RangePets : Pet
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(10, 500, 12, 5f, 1.1f);
+        Initialized(10, 500, 7, 5f, 1.1f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
@@ -53,7 +53,7 @@ public class RangePets : Pet
             {
                 var bullet = ObjectPool.instance.Spawn("Bullet_Pet");
                 Bullet o = bullet.GetComponent<Bullet>();
-
+                animator.SetTrigger("attack");
                 o.Attack = Attack;
                 o.ownerBullet = "Bullet_Pet";
                 bullet.transform.SetPositionAndRotation(shootPoint.transform.position,shootPoint.transform.rotation);

@@ -32,6 +32,7 @@ public class HealPets : Pet
         float distance = GetDistanceToTarget();
         if (distance <= attackRange)
         {
+            animator.SetTrigger("attack");
             attackTimer = nextAttackTime;
             owner.Health += Attack;
             owner.UpdateHealth();

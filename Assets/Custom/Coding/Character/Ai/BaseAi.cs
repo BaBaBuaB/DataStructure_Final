@@ -28,6 +28,10 @@ public abstract class BaseAi : Identity
     protected float nextWayPoint = 5f;
     protected float attackTimer = 0f;
     #endregion
+
+    [SerializeField]protected Animator animator;
+    [SerializeField] private GameObject spriteObj;
+
     #endregion
 
     protected void InitializeComponents()
@@ -91,6 +95,16 @@ public abstract class BaseAi : Identity
         Vector2 moveSpeed = dir * Speed * Time.deltaTime;
 
         rb.linearVelocity = moveSpeed;
+        
+        if (moveSpeed.x > 0)
+        {
+            spriteObj.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (moveSpeed.x < 0)
+        {
+            spriteObj.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
 
@@ -112,7 +126,6 @@ public abstract class BaseAi : Identity
         }
 
         Move();
-
     }
 
     protected float GetDistanceToTarget()

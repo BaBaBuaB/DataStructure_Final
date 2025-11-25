@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Player : Identity, IDamageable
 {
+    #region"Parameter"
+    #region"Health"
     private float health;
     public float maxHealth = 100;
     public float Health
@@ -12,17 +14,19 @@ public class Player : Identity, IDamageable
         get { return health; }
         set { health = Mathf.Clamp(value,0,maxHealth); }
     }
-
+    #endregion
     public int keyCount;
     public int poolsPet;
     public int currentPet = 0;
     public List<Pet> pets;
 
+    #region "Input"
     private PlayerInput playerInput;
     private InputActionMap inputActionsMap;
     private InputAction moveAction;
     private InputAction blockAction;
     private InputAction closeGuide;
+    #endregion
 
     [SerializeField]private float coolDown = 5;
     private float timerCoolDown;
@@ -30,6 +34,9 @@ public class Player : Identity, IDamageable
     public GameObject barriar;
     public bool barriarActive = false;
 
+    [SerializeField]private Animator animator;
+    [SerializeField] private GameObject spriteObj;
+    #endregion
     private void Initialized(int hp, int atk, int spd)
     {
         maxHealth = hp;
@@ -86,6 +93,7 @@ public class Player : Identity, IDamageable
 
         if (IsDeath())
         {
+            animator.SetBool("Death",true);
             UIManager.instance.CallGameOverUi();
         }
     }
@@ -124,7 +132,24 @@ public class Player : Identity, IDamageable
     public override void Move()
     {
         Vector2 move = moveAction.ReadValue<Vector2>();
+        if (moveAction.inProgress) 
+        {
+            animator.SetBool("Run",true); 
+        }
+        else
+        {
+            animator.SetBool("Run", false);
+        }
         Vector2 moveDir = move * Speed * Time.deltaTime;
+
+        if (move.x > 0)
+        {
+            spriteObj.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (move.x < 0)
+        {
+            spriteObj.transform.localScale = new Vector3(-1, 1, 1);
+        }
         rb.linearVelocity = moveDir;
     }
     private void Block()

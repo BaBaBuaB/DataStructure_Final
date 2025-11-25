@@ -22,31 +22,6 @@ public class Bullet : Identity
         transform.Translate(Vector2.right *Time.deltaTime* Speed);
     }
 
-    public void Reflect(string newOwner, Collision2D collision)
-    {
-        Debug.Log("Reflect");
-
-        ownerBullet = newOwner;
-        gameObject.transform.Rotate(0,0,-1);
-
-        // ดึง ContactPoint แรก
-        ContactPoint2D contact = collision.GetContact(0);
-
-        // คำนวณทิศทางสะท้อน
-        Vector2 reflectDirection = Vector2.Reflect(currentDirection, contact.normal);
-
-        // อัพเดททิศทางปัจจุบัน
-        currentDirection = reflectDirection.normalized;
-
-        // ตั้งค่าความเร็วใหม่ (ลดลงตาม damping)
-        float newSpeed = Speed * reflectionDamping;
-        rb.linearVelocity = currentDirection * newSpeed;
-
-        // หมุนกระสุนไปทางที่สะท้อน
-        float angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Barriar") && ownerBullet == "Bullet_Enemy")
