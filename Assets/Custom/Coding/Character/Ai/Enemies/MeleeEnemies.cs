@@ -6,18 +6,16 @@ public class MeleeEnemies : Enemies
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(200, 10, 500, 4, 1.5f, 1.5f, "Melee_Enemy");
+        Initialized(200, 10, 300, 4, 1.5f, 1.5f, "Melee_Enemy");
 
         detectRange = (int)chaseRange;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         UpdateBehavior();
     }
 
-    
     private void OnEnable()
     {
         Attack = Attack * StatusController.Instance.CurrentStats.enemyDamageBuff;

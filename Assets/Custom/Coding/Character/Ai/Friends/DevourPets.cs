@@ -6,7 +6,7 @@ public class DevourPets : Pet
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(10, 700, 4, 4f, 0.5f);
+        Initialized(10, 150, 4, 2f, 2.5f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
@@ -20,7 +20,7 @@ public class DevourPets : Pet
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         UpdateBehavior();
     }

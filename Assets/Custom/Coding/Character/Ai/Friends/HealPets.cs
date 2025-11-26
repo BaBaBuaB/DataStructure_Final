@@ -6,7 +6,7 @@ public class HealPets : Pet
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(10, 500, 20, 6f, 0.5f);
+        Initialized(10, 200, 20, 6f, 4f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
@@ -19,7 +19,7 @@ public class HealPets : Pet
         }
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         UpdateBehavior();
     }

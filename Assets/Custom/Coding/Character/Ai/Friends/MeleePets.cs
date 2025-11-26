@@ -5,7 +5,7 @@ public class MeleePets : Pet
     private  void Awake()
     {
         InitializeComponents();
-        Initialized(10, 600, 4, 2f, 0.5f);
+        Initialized(10, 350, 4, 2f, 1.5f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
@@ -18,8 +18,7 @@ public class MeleePets : Pet
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         UpdateBehavior();
     }

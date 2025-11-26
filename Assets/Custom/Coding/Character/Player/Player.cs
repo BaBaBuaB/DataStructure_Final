@@ -33,9 +33,9 @@ public class Player : Identity, IDamageable
     private InputAction closeGuide;
     #endregion
 
-    [SerializeField]private float coolDown = 5;
+    [SerializeField]private float coolDown = 4f;
     private float timerCoolDown;
-    private float duration = 2;
+    private float duration = 3.5f;
     public GameObject barriar;
     public bool barriarActive = false;
 
@@ -52,7 +52,7 @@ public class Player : Identity, IDamageable
 
     private void Awake()
     {
-        Initialized(100,10,700);
+        Initialized(100,10,350);
         UIManager.instance.UpdateHealth(Health,maxHealth);
 
         rb = GetComponent<Rigidbody2D>();
@@ -65,8 +65,7 @@ public class Player : Identity, IDamageable
         SummonPets();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         if (IsDeath())
         {
@@ -77,7 +76,7 @@ public class Player : Identity, IDamageable
         Block();
         CloseUi();
 
-        if (timerCoolDown  >= 0)
+        if (timerCoolDown >= 0)
         {
             timerCoolDown -= Time.deltaTime;
         }

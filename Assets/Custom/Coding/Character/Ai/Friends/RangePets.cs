@@ -11,7 +11,7 @@ public class RangePets : Pet
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(10, 500, 7, 5f, 1.1f);
+        Initialized(10, 300, 7, 5f, 1.2f);
 
         // หาเจ้าของ (Player)
         if (owner == null)
@@ -25,7 +25,7 @@ public class RangePets : Pet
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         UpdateBehavior();
     }
