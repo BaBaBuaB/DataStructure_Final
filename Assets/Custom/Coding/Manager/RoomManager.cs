@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class RoomManager : MonoBehaviour
 {
     [SerializeField]private GameObject[] gates;
+    [SerializeField]private GameObject prize;
     [SerializeField]private EnemySpawner[] spawners;
-    [SerializeField] private GameObject prize;
 
     private int enemiesInScene; //จำนวน enemy ใน scene ปัจจุบัน
     [SerializeField] private int enemiesCount; //จำนวนที่เหลือสำหรับ spawn เพิ่ม

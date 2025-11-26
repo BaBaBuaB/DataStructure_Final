@@ -21,13 +21,13 @@ public class MeleeEnemies : Enemies
     private void OnEnable()
     {
         Attack = Attack * StatusController.Instance.CurrentStats.enemyDamageBuff;
-        maxHealth = maxHealth * StatusController.Instance.CurrentStats.enemyHealthBuff;
-        Health = maxHealth;
+        MaxHealth = MaxHealth * StatusController.Instance.CurrentStats.enemyHealthBuff;
+        Health = MaxHealth;
     }
 
     private void OnDisable()
     {
-        maxHealth = 100;
+        MaxHealth = 100;
         Attack = baseAttack;
         roomManager = null;
     }

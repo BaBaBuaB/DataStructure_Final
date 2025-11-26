@@ -8,8 +8,6 @@ public class ObjectPool : MonoBehaviour
     public static ObjectPool instance;
     #endregion
 
-
-    
     [System.Serializable]
     public class Pool
     {

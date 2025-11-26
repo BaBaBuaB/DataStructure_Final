@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     }
 
     private static GameManager instance;
-    [SerializeField]private UIManager UIManager;
     [SerializeField]private Player player;
 
     void Awake()

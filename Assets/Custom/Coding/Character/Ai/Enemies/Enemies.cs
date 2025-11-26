@@ -6,7 +6,12 @@ public class Enemies : BaseAi, IDamageable
     #region "Enemy Parameters"
     [Header("Enemy Stats")]
     private float health;
-    public float maxHealth;
+    private float maxHealth;
+    public float MaxHealth
+    {
+        get { return maxHealth; }
+        set { maxHealth = value; }
+    }
     public float Health
     {
         get { return health; }
@@ -27,7 +32,6 @@ public class Enemies : BaseAi, IDamageable
     private bool isChasing = false;
 
     public RoomManager roomManager;
-    public bool notInlistDamages = true;
     #endregion
 
     protected void Initialized(int hp, int atk, int spd, int detect, float atkRang, float atkCoolDown,string nameTag)

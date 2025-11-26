@@ -19,7 +19,6 @@ public class HealPets : Pet
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateBehavior();
@@ -46,7 +45,7 @@ public class HealPets : Pet
 
         FollowOwner();
 
-        if (owner.Health <= owner.maxHealth * 0.8)
+        if (owner.Health <= owner.MaxHealth * 0.8)
         {
             AttackTarget();
         }

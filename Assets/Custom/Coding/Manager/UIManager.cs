@@ -8,8 +8,8 @@ public class UIManager : MonoBehaviour
     //[SerializeField]private GameObject startGameUi;
     public static UIManager instance;
     [SerializeField]private HealthSlider healthUi;
-    [SerializeField] private GameObject healthBar;
-    [SerializeField] private GameObject mainMenu;
+    [SerializeField]private GameObject healthBar;
+    [SerializeField]private GameObject mainMenu;
     [SerializeField]private GameObject slimeStatsUi;
     [SerializeField]private GameObject gameOverUi;
     [SerializeField]private GameObject gameWinUi;
@@ -89,6 +89,7 @@ public class UIManager : MonoBehaviour
         healthUi.UpdateHP(hpValue,maxHp);
     }
 
+    //Load Scene
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

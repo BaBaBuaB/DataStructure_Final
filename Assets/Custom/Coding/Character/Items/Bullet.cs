@@ -3,8 +3,6 @@
 public class Bullet : Identity
 {
     public string ownerBullet = "";
-    public float reflectionDamping = 1f; // ลดความเร็วเมื่อสะท้อน (1.0 = ไม่ลด)
-    private Vector2 currentDirection;
 
     private void Start()
     {
@@ -24,12 +22,6 @@ public class Bullet : Identity
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Barriar") && ownerBullet == "Bullet_Enemy")
-        {
-            Debug.Log("Barriar");
-            return;
-        }
-
         if (collision.gameObject.TryGetComponent<Enemies>(out Enemies enemies) && (ownerBullet == "Player" || ownerBullet == "Bullet_Pet"))
         {
             enemies.TakeDamages(Attack);

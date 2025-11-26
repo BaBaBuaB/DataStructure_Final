@@ -8,7 +8,12 @@ public class Player : Identity, IDamageable
     #region"Parameter"
     #region"Health"
     private float health;
-    public float maxHealth = 100;
+    private float maxHealth;
+    public float MaxHealth
+    {
+        get { return maxHealth; }
+        set { maxHealth = value; }
+    }
     public float Health
     { 
         get { return health; }
@@ -35,7 +40,7 @@ public class Player : Identity, IDamageable
     public bool barriarActive = false;
 
     [SerializeField]private Animator animator;
-    [SerializeField] private GameObject spriteObj;
+    [SerializeField]private GameObject spriteObj;
     #endregion
     private void Initialized(int hp, int atk, int spd)
     {
@@ -109,7 +114,7 @@ public class Player : Identity, IDamageable
     }
     #endregion
 
-    public void GetItems(Items items)
+    private void GetItems(Items items)
     {
         switch(items.nameItem)
         {

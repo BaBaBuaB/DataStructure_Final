@@ -30,7 +30,7 @@ public abstract class BaseAi : Identity
     #endregion
 
     [SerializeField]protected Animator animator;
-    [SerializeField] private GameObject spriteObj;
+    [SerializeField]private GameObject spriteObj;
 
     #endregion
 
