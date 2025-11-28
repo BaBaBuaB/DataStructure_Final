@@ -6,7 +6,7 @@ public class MeleeEnemies : Enemies
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(200, 10, 300, 4, 1.5f, 1.5f, "Melee_Enemy");
+        Initialized(200, 10, 200, 4, 1.5f, 1.5f, "Melee_Enemy");
 
         detectRange = (int)chaseRange;
     }

@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Enemies : BaseAi, IDamageable
 {
@@ -57,6 +58,17 @@ public class Enemies : BaseAi, IDamageable
             item.transform.SetLocalPositionAndRotation(gameObject.transform.position,gameObject.transform.rotation);
         }
     }
+
+    private IEnumerator PlayDeathAnim()
+    {
+        animator.SetBool("Dead", true);
+        yield return new WaitForSeconds(1f);
+        DropItem();
+        ObjectPool.instance.Return(gameObject, tag);
+        Attack = baseAttack;
+        Health = maxHealth;
+
+    }
     #endregion
 
     #region "IDamageable Implementation"
@@ -69,20 +81,13 @@ public class Enemies : BaseAi, IDamageable
 
         if (IsDeath())
         {
-            DropItem();
-
-            animator.SetBool("Dead",true);
 
             if (roomManager != null)
             {
                 roomManager.OnEnemiesDeath();
             }
 
-            ObjectPool.instance.Return(gameObject,tag);
-
-            animator.SetBool("Dead", false);
-            Attack = baseAttack;
-            Health = maxHealth;
+            StartCoroutine(PlayDeathAnim());
         }
     }
 
@@ -205,4 +210,6 @@ public class Enemies : BaseAi, IDamageable
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, direction.magnitude, obstacleLayer);
         return hit.collider == null;
     }
+
+
 }

@@ -11,7 +11,7 @@ public class RangePets : Pet
     {
         InitializeComponents();
         // ตั้งค่าสเตตเริ่มต้นของ Enemy
-        Initialized(10, 300, 7, 5f, 1.2f);
+        Initialized(10, 200, 7, 5f, 1.2f);
 
         // หาเจ้าของ (Player)
         if (owner == null)

@@ -93,7 +93,6 @@ public class Player : Identity, IDamageable
         Health -= damages;
 
         UpdateHealth();
-        Debug.Log(Health);
 
         if (IsDeath())
         {

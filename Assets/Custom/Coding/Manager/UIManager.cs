@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]private GameObject slimeStatsUi;
     [SerializeField]private GameObject gameOverUi;
     [SerializeField]private GameObject gameWinUi;
-
+    #region"Worldtier Ui"
+    [SerializeField] private GameObject worldTierUi;
+    [SerializeField] private TextMeshPro displayWorld;
+    #endregion
     void Awake()
     {
         if (instance != null)
@@ -76,6 +80,25 @@ public class UIManager : MonoBehaviour
         gameWinUi.SetActive(false);
     }
 
+    #region "World method"
+
+    public void CallWorldTierUi()
+    {
+        worldTierUi.SetActive(true);
+    }
+
+    public void CloseWorldTier()
+    {
+        worldTierUi.SetActive(false);
+    }
+
+    public void UpdateWorldtierText(string text)
+    {
+        displayWorld.text = text;
+    }
+    #endregion
+
+    #region"Update UI"
     // Health Bar //
     public void HealthBarActive(bool active)
     {
@@ -94,7 +117,7 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-
+    #endregion
     #region "Button Active"
     public void ExitGame()
     {
