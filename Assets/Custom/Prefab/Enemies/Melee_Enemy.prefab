@@ -166,7 +166,6 @@ MonoBehaviour:
   nextAttackTime: 0
   animator: {fileID: 6155581600170709103}
   spriteObj: {fileID: 1246728153665089050}
-  maxHealth: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -238,7 +237,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 2
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:

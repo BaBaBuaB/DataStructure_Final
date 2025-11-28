@@ -62,7 +62,7 @@ public class Enemies : BaseAi, IDamageable
     private IEnumerator PlayDeathAnim()
     {
         animator.SetBool("Dead", true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         DropItem();
         ObjectPool.instance.Return(gameObject, tag);
         Attack = baseAttack;
@@ -103,6 +103,12 @@ public class Enemies : BaseAi, IDamageable
     #endregion
 
     #region "Abstract Implementation"
+    protected override void UpdateBehavior()
+    {
+        if (IsDeath()) return;
+
+        base.UpdateBehavior();
+    }
 
     protected override void UpdateTarget()
     {

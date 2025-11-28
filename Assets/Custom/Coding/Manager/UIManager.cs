@@ -4,20 +4,26 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    #region"Parameter"
     // UI manager จะควบคุมการทำงาน เปิด / ปิด ของ UI ทุกตัวยกเว้น mainmenu //
 
     //[SerializeField]private GameObject startGameUi;
     public static UIManager instance;
     [SerializeField]private HealthSlider healthUi;
-    [SerializeField]private GameObject healthBar;
+    [SerializeField]private GameObject inGameUi;
     [SerializeField]private GameObject mainMenu;
     [SerializeField]private GameObject slimeStatsUi;
     [SerializeField]private GameObject gameOverUi;
     [SerializeField]private GameObject gameWinUi;
     #region"Worldtier Ui"
     [SerializeField] private GameObject worldTierUi;
-    [SerializeField] private TextMeshPro displayWorld;
+    [SerializeField] private TMP_Text displayWorld;
     #endregion
+    #region"CoolDown"
+    [SerializeField] private TMP_Text cooldownDisplay;
+    #endregion
+    #endregion
+
     void Awake()
     {
         if (instance != null)
@@ -98,11 +104,20 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region"Barriar UI"
+
+    public void UpdateCooldown(int secound)
+    {
+        cooldownDisplay.text = secound.ToString();
+    }
+
+    #endregion
+
     #region"Update UI"
     // Health Bar //
     public void HealthBarActive(bool active)
     {
-        healthBar.SetActive(active);
+        inGameUi.SetActive(active);
     }
     
     // HP //

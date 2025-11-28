@@ -33,7 +33,7 @@ public class Player : Identity, IDamageable
     private InputAction closeGuide;
     #endregion
 
-    [SerializeField]private float coolDown = 4f;
+    [SerializeField]private float coolDown = 3f;
     private float timerCoolDown;
     private float duration = 3.5f;
     public GameObject barriar;
@@ -63,6 +63,7 @@ public class Player : Identity, IDamageable
         closeGuide = inputActionsMap.FindAction("CloseAction");
 
         SummonPets();
+        UIManager.instance.UpdateCooldown(((int)timerCoolDown));
     }
 
     private void FixedUpdate()
@@ -75,11 +76,7 @@ public class Player : Identity, IDamageable
         Move();
         Block();
         CloseUi();
-
-        if (timerCoolDown >= 0)
-        {
-            timerCoolDown -= Time.deltaTime;
-        }
+        UpdateCooldown();
     }
 
     #region"InterfaceIDamages"
@@ -256,5 +253,14 @@ public class Player : Identity, IDamageable
     public void UpdateHealth()
     {
         UIManager.instance.UpdateHealth(Health, maxHealth);
+    }
+
+    private void UpdateCooldown()
+    {
+        if (timerCoolDown >= 0)
+        {
+            timerCoolDown -= Time.deltaTime;
+            UIManager.instance.UpdateCooldown((int)timerCoolDown);
+        }
     }
 }

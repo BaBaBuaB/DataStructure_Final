@@ -26,7 +26,7 @@ public class RangeEnemies : Enemies
     {
         base.UpdateBehavior();
 
-        if (targetTransform != null && shootPoint != null)
+        if (shootPoint != null)
         {
             UpdateShootPointPosition();
         }

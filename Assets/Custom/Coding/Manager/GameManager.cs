@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,15 +37,24 @@ public class GameManager : MonoBehaviour
 
         if (player == null)
         {
-            Debug.Log("!");
             GameObject playerObj = GameObject.Find("Player");
             player = playerObj.GetComponent<Player>();
         }
 
-        Debug.Log("Complete State!");
+        StartCoroutine(DebugState());
         StatusController.Instance.IncreaseWorldTier();
 
         player.Attack = player.Attack * StatusController.Instance.CurrentStats.playerDamageNerf;
         player.SetStatPet();
+    }
+
+    private IEnumerator DebugState()
+    {
+        UIManager.instance.CallWorldTierUi();
+        UIManager.instance.UpdateWorldtierText("Complete State!");
+        yield return new WaitForSeconds(2f);
+        UIManager.instance.UpdateWorldtierText($"Current world tier {StatusController.Instance.CurrentWorldTier}");
+        yield return new WaitForSeconds(2f);
+        UIManager.instance.CloseWorldTier();
     }
 }
