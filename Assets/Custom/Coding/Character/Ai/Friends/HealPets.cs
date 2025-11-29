@@ -35,7 +35,6 @@ public class HealPets : Pet
             attackTimer = nextAttackTime;
             owner.Health += Attack;
             owner.UpdateHealth();
-            Debug.Log($"{gameObject.name}: รักษา {owner.Health}");
         }
     }
 

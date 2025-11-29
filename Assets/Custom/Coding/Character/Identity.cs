@@ -12,6 +12,11 @@ public abstract class Identity : MonoBehaviour
         get { return speed; }
         set { speed = value; }
     }
+    public float BaseAttack
+    {
+        get { return baseAttack; }
+        set { baseAttack = value; }
+    }
     public float Attack
     { 
         get { return attack; } 

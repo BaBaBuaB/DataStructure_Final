@@ -22,6 +22,7 @@ public class Pet : BaseAi
     protected void Initialized(int atk, int spd,int detect, float atkRang, float atkCoolDown)
     {
         Attack = atk;
+        BaseAttack = atk;
         Speed = spd;
         detectRange = detect;
         attackRange = atkRang;

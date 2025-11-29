@@ -54,7 +54,6 @@ public class RoomManager : MonoBehaviour
     }
     private void RoomComplete()
     {
-        Debug.Log("Complete Room!");
         var prizes = ObjectPool.instance.Spawn("Key");
         prizes.transform.SetLocalPositionAndRotation(prize.transform.position,prize.transform.rotation);
         player.SummonPets();

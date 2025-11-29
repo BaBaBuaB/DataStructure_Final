@@ -188,7 +188,7 @@ public class Player : Identity, IDamageable
 
         foreach (var pet in pets)
         {
-            pet.Attack = Attack;
+            pet.Attack = pet.BaseAttack + Attack;
         }
     }
 

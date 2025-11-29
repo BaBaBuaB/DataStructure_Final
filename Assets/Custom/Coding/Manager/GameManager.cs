@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
@@ -41,8 +40,11 @@ public class GameManager : MonoBehaviour
             player = playerObj.GetComponent<Player>();
         }
 
-        StartCoroutine(DebugState());
         StatusController.Instance.IncreaseWorldTier();
+        if (StatusController.Instance.CurrentWorldTier <= 3)
+        {
+            StartCoroutine(DebugState());
+        }
 
         player.Attack = player.Attack * StatusController.Instance.CurrentStats.playerDamageNerf;
         player.SetStatPet();

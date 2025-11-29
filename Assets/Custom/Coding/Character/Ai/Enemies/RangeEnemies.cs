@@ -57,7 +57,7 @@ public class RangeEnemies : Enemies
 
     private void UpdateShootPointPosition()
     {
-        // คำนวณทิศทางจาก Pet ไปยัง Target
+        // คำนวณทิศทางจาก enemies ไปยัง Target
         Vector2 direction = ((Vector2)targetTransform.position - (Vector2)transform.position).normalized;
 
         // คำนวณมุมจากทิศทาง (ในหน่วย Radian แล้วแปลงเป็น Degree)
@@ -66,8 +66,7 @@ public class RangeEnemies : Enemies
         // ตั้งค่าการหมุนของ shootPoint ให้หันไปทาง Target
         shootPoint.rotation = Quaternion.Euler(0f, 0f, angle);
 
-        // คำนวณตำแหน่งของ shootPoint ให้อยู่ระหว่าง Pet และ Target
-        // โดยห่างจาก Pet ด้วยระยะ shootPointDistance
+        // โดยห่างจาก enemies ด้วยระยะ shootPointDistance
         Vector2 offset = direction * shootPointDistance;
         shootPoint.position = (Vector2)transform.position + offset;
     }
